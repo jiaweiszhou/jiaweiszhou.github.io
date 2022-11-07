@@ -134,7 +134,7 @@ header {
   -webkit-font-smoothing:subpixel-antialiased;
 }
 
-header ul {
+/*header ul {
   list-style:none;
   height:40px;
   padding:0;
@@ -149,7 +149,7 @@ header li {
   float:left;
   border-right:1px solid #e0e0e0;
   height:40px;
-}
+}*/
 
 header li:first-child a {
   border-radius:5px 0 0 5px;
@@ -203,7 +203,11 @@ small {
   font-size:11px;
 }
 
-medium {
+front-medium1 {
+  font-size:18px;
+}
+
+front-medium2 {
   font-size:13px;
 }
 
@@ -236,7 +240,8 @@ footer {
   }
 
   header {
-    padding-right:320px;
+    /*padding-right:320px;*/
+    text-align: center;
   }
 
   section {
@@ -264,7 +269,7 @@ footer {
 
   header {
     padding:0;
-    text-align:center;
+    text-align: center;
   }
 
   header ul, header p.view {
@@ -274,7 +279,6 @@ footer {
   pre, code {
     word-wrap:normal;
   }
-
 }
 
 @media print, screen and (max-width: 480px) {
@@ -291,7 +295,7 @@ footer {
   }
 
   header {
-    text-align:center;
+    text-align: center;
   }
 }
 
