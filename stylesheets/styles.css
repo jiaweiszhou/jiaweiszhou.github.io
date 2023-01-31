@@ -80,7 +80,8 @@ pre {
 }
 
 ul {
-  list-style-position: inside;
+/*  list-style-position: inside;*/
+  list-style-type: none;
   padding-left: 0;
 }
 
@@ -127,8 +128,13 @@ img {
   margin-right: 10px;
 }
 
-.project{
-  font-style: italic;
+.project {
+/*  font-style: italic;*/
+  color:#004466;
+  font-weight:550;
+}
+.project:hover{
+  color:#069;
 }
 
 header div.box {
