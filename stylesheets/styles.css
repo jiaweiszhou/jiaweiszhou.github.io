@@ -15,6 +15,10 @@ p, ul, ol, table, pre, dl {
   margin:0 0 20px;
 }
 
+p.pub {
+  margin:10px 0 0 0;
+}
+
 h1, h2, h3 {
   line-height:1.1;
 }
@@ -129,12 +133,8 @@ img {
 }
 
 .project {
-/*  font-style: italic;*/
   color:#004466;
   font-weight:550;
-}
-.project:hover{
-  color:#069;
 }
 
 header div.box {
@@ -152,6 +152,15 @@ header {
 header a{
   color: #222222;
   font-size: 13px;
+}
+
+
+/* Style the collapsible content. Note: hidden by default */
+.bibcontent {
+  padding: 10px 15px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
 }
 
 /*header ul {
