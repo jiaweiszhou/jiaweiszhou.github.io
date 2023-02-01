@@ -139,7 +139,7 @@ img {
 
 header div.box {
   list-style:none;
-  padding: 5px;
+/*  padding: 5px;*/
 }
 
 header {
@@ -318,7 +318,7 @@ footer {
   }
 
   header ul, header div.box {
-    width:99%;
+    width:97%;
   }
 
   header li, header ul li + li + li {
