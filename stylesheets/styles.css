@@ -137,6 +137,11 @@ img {
   font-weight:550;
 }
 
+.highlight {
+  color:#CC6633;
+  font-weight:550;
+}
+
 header div.box {
   list-style:none;
 /*  padding: 5px;*/
@@ -244,7 +249,7 @@ small {
 }
 
 front-medium1 {
-  font-size:16px;
+  font-size:18px;
 }
 
 front-medium2 {
