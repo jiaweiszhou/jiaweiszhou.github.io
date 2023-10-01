@@ -48,10 +48,18 @@ a:hover {
 }
 
 a small {
-  font-size:11px;
+/*  font-size:11px;*/
   color:#777;
   margin-top:-0.3em;
   display:block;
+}
+
+.venue {
+  color: white;
+  background-color: #069;
+/*  margin-top:-0.3em;*/
+  font-size:15 px;
+  padding-inline: 4px;
 }
 
 a:hover small {
@@ -135,12 +143,25 @@ img {
 .project {
   color:#004466;
   font-weight:550;
+  font-size:15px;
+}
+
+.keyword {
+  color:#004466;
+  font-weight:550;
 }
 
 .highlight {
   color:#CC6633;
   font-weight:550;
 }
+
+.award {  
+  color:#CC6633;
+  font-weight:550;
+  font-style: italic;
+}
+
 
 header div.box {
   list-style:none;
@@ -244,15 +265,15 @@ section {
 }
 
 small {
-  font-size:10px;
+/*  font-size:10px;*/
   color: #828282;
 }
 
-front-medium1 {
+font-medium1 {
   font-size:18px;
 }
 
-front-medium2 {
+font-medium2 {
   font-size:13px;
 }
 
