@@ -127,6 +127,14 @@ img {
   border-radius: 50%;
 }
 
+.scrollable-section {
+  height: 380px;          /* fixed height */
+/*  border: 1px solid #ccc; /* just for visibility */*/
+  padding: 10px;
+  overflow-y: scroll;     /* makes vertical scroll appear when needed */
+  overflow-x: hidden;     /* hides horizontal scroll (optional) */
+}
+
 .icon{
   width: 1em; 
   height:1em;
