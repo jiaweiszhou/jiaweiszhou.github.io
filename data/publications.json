@@ -18,7 +18,7 @@
   },
   {
     "id": "zhou2026communication",
-    "title": "Communication styles and reader preferences of LLM- and human-authored COVID-19 information explanations: a case study",
+    "title": "Communication Styles and Reader Preferences of LLM- and Human-authored COVID-19 Information Explanations: A Case Study",
     "authors": ["Jiawei Zhou*", "Kritika Venkatachalam*", "Minje Choi", "Koustuv Saha", "Munmun De Choudhury"],
     "venue": "BMC AI",
     "venueFull": "BMC Artificial Intelligence 2, Article 10 (2026). *Equal contribution.",
@@ -209,7 +209,7 @@
     "venueFull": "Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems, pp. 1-16.",
     "year": 2022,
     "themes": ["clinical", "wellbeing"],
-    "featured": false,
+    "featured": true,
     "links": {
       "pdf": "assets/chi22_trusted_other.pdf",
       "doi": "https://dl.acm.org/doi/10.1145/3491102.3517513"

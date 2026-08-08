@@ -121,7 +121,7 @@ main { min-width: 0; }
 .sidebar { min-width: 0; }
 
 .avatar {
-  width: 104px; height: 104px;
+  width: 120px; height: 120px;
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--border);
@@ -525,7 +525,7 @@ a.pub-title:hover { color: var(--accent); }
     gap: 24px;
     align-items: center;
   }
-  .avatar { width: 128px; height: 128px; margin-bottom: 0; }
+  .avatar { width: 148px; height: 148px; margin-bottom: 0; }
   .social { margin-bottom: 0; }
 
   .news li, .talks li {
@@ -555,7 +555,7 @@ a.pub-title:hover { color: var(--accent); }
     top: 36px;
     display: block;
   }
-  .avatar { width: 158px; height: 158px; margin-bottom: 18px; }
+  .avatar { width: 182px; height: 182px; margin-bottom: 18px; }
   .social { margin-bottom: 20px; margin-left: -8px; }
 
   .sidenav {
@@ -595,7 +595,7 @@ a.pub-title:hover { color: var(--accent); }
 
 @media (max-width: 380px) {
   .layout { padding: 22px 14px 44px; }
-  .avatar { width: 88px; height: 88px; }
+  .avatar { width: 100px; height: 100px; }
   .news-scroll { max-height: 216px; padding: 4px 11px; }
   .ov-figure { padding: 4px; }
   .ov-figure img { max-height: 160px; }

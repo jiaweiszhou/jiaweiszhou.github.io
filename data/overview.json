@@ -4,12 +4,12 @@
     "title": "Responsible adoption of AI in health",
     "blurb": "AI is often evaluated on its own, apart from the situations, relationships, and information systems it enters. I study what these systems produce and assess it in context, so that both the public and the clinicians they serve can judge when a tool belongs in health.",
     "image": "assets/illus/evidence.jpg",
-    "papers": ["zhou2023synthetic", "zhou2025risk", "zhou2026communication"]
+    "papers": ["zhou2025risk", "zhou2023synthetic", "zhou2026communication"]
   },
   {
     "eyebrow": "Human-AI Interaction",
     "title": "How people perceive and trust AI",
-    "blurb": "How people act on AI depends less on what it can do than on what they take it to be. I pair analysis of public discourse over time with controlled experiments to trace how AI is represented, and how that shapes the trust and roles people assign it.",
+    "blurb": "How people act on AI depends less on what it can actually do than on what people take it to be. I pair analysis of public discourse over time with controlled experiments to trace how AI is represented, and how that shapes the trust and roles people assign it.",
     "image": "assets/illus/portray.jpg",
     "papers": ["zhou2026ai"]
   },
@@ -18,6 +18,6 @@
     "title": "Health signals and support in everyday life",
     "blurb": "Formal healthcare systems overlook much of what social and everyday data reveal, and much of the care that happens beyond their reach. I study both what these spaces disclose about health and the support people find within them.",
     "image": "assets/illus/evaluate.jpg",
-    "papers": ["zhou2022veteran", "zhou2025harm"]
+    "papers": ["evans2024using", "zhou2022veteran"]
   }
 ]

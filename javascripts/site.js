@@ -50,8 +50,8 @@
   function linkRow(p, idx) {
     var out = [];
     var L = p.links || {};
-    if (L.pdf)     out.push('<a href="' + esc(L.pdf) + '" target="_blank" rel="noopener">PDF</a>');
     if (L.doi)     out.push('<a href="' + esc(L.doi) + '" target="_blank" rel="noopener">DOI</a>');
+    if (L.pdf)     out.push('<a href="' + esc(L.pdf) + '" target="_blank" rel="noopener">PDF</a>');
     if (L.webpage) out.push('<a href="' + esc(L.webpage) + '" target="_blank" rel="noopener">Project page</a>');
     if (L.video)   out.push('<a href="' + esc(L.video) + '" target="_blank" rel="noopener">Video</a>');
     if (p.bibtex) {
@@ -105,9 +105,10 @@
     pubs.forEach(function (p) { byId[p.id] = p; });
 
     host.innerHTML = groups.map(function (g) {
+      // Display order follows the "papers" array in data/overview.json,
+      // so reordering the ids there reorders the list on the page.
       var papers = (g.papers || []).map(function (id) { return byId[id]; })
-        .filter(Boolean)
-        .sort(function (a, b) { return b.year - a.year; });
+        .filter(Boolean);
 
       var links = papers.map(function (p) {
         var href = titleHref(p);
@@ -280,8 +281,7 @@
   }).catch(function (err) {
     console.error(err);
     document.querySelectorAll(".loading").forEach(function (n) {
-      n.textContent = "Could not load content. If you are opening this file directly " +
-        "from disk, run a local server instead: python3 -m http.server";
+      n.textContent = "Content failed to load. Please refresh.";
     });
   });
 })();
