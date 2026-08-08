@@ -1,0 +1,92 @@
+[
+  {
+    "date": "Nov 2026",
+    "host": "AMIA 2026 Annual Symposium @ Dallas",
+    "location": "Dallas, TX"
+  },
+  {
+    "date": "Apr 2026",
+    "host": "CHI'26 @ Barcelona, Spain",
+    "location": "Barcelona, Spain"
+  },
+  {
+    "date": "Apr 2026",
+    "host": "Rice University",
+    "location": "Houston, TX"
+  },
+  {
+    "date": "Apr 2026",
+    "host": "University of Maryland",
+    "location": "Virtual"
+  },
+  {
+    "date": "Apr 2026",
+    "host": "University of Notre Dame",
+    "location": "Virtual"
+  },
+  {
+    "date": "Mar 2026",
+    "host": "University of Illinois Urbana-Champaign",
+    "location": "Virtual"
+  },
+  {
+    "date": "Mar 2026",
+    "host": "Georgia Institute of Technology",
+    "location": "Virtual"
+  },
+  {
+    "date": "Feb 2026",
+    "host": "UNC Chapel Hill, School of Nursing (T32 Seminar Series)",
+    "location": "Virtual"
+  },
+  {
+    "date": "Nov 2025",
+    "host": "Invited Panelist @ American Public Health Association (APHA) Annual Meeting 2025",
+    "url": "https://apha.confex.com/apha/2025/meetingapp.cgi/Session/75396",
+    "location": "Washington, D.C."
+  },
+  {
+    "date": "Nov 2025",
+    "host": "AMIA'25 @ Atlanta",
+    "location": "Atlanta, Georgia"
+  },
+  {
+    "date": "Oct 2025",
+    "host": "CSCW'25 @ Bergen, Norway",
+    "location": "Bergen, Norway"
+  },
+  {
+    "date": "Jun 2025",
+    "host": "AIME'2025",
+    "url": "https://hwutemple.github.io/AIME25WorkshopAIPHSS/"
+  },
+  {
+    "date": "Apr 2025",
+    "host": "IPaT: GVU Lunch Lecture Series @ Georgia Tech",
+    "url": "https://research.gatech.edu/ipat/spring-2025-lunch-lectures",
+    "location": "Atlanta, Georgia"
+  },
+  {
+    "date": "Mar 2025",
+    "host": "Georgia Institute of Technology",
+    "location": "Atlanta, Georgia"
+  },
+  {
+    "date": "May 2024",
+    "host": "UT Southwestern Medical Center, AI Symposium in Health Care",
+    "location": "Dallas, TX"
+  },
+  {
+    "date": "May 2023",
+    "host": "CSIRO Australian National Science Agency, Human and AI Seminar",
+    "url": "https://alumni.csiro.au/events/synthetic-lies-misinformation-in-the-age-of-large-language-models/"
+  },
+  {
+    "date": "Mar 2023",
+    "host": "Amazon, AWS Responsible AI Science Meeting"
+  },
+  {
+    "date": "Aug 2022",
+    "host": "Mayo Clinic"
+  }
+]

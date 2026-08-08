@@ -1,0 +1,618 @@
+/* ==========================================================================
+   Jiawei Zhou — personal site
+   Single stylesheet. Design tokens live in :root; change them there.
+   Layout is mobile-first: base rules target phones, media queries add columns.
+   ========================================================================== */
+
+:root {
+  --bg:            #ffffff;
+  --bg-soft:       #f6f7f9;
+  --bg-sunk:       #eef0f4;
+  --text:          #23272f;
+  --text-soft:     #5b6472;
+  --text-faint:    #8b95a3;
+  --border:        #e3e7ed;
+  --accent:        #12667f;
+  --accent-soft:   #e6f1f5;
+  --accent-hover:  #0b485b;
+  --award:         #9a5b12;
+  --award-soft:    #fbf1e3;
+
+  /* Public Sans (US Web Design System) with the platform stack behind it, so the
+     page still renders correctly if the webfont is slow or blocked. Variable
+     axis 400-700, which covers the 560-650 weights used below. */
+  --font-sans: "Public Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+               "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+               "Liberation Mono", monospace;
+
+  --maxw: 1160px;
+  --side: 268px;
+  --radius: 10px;
+  --tap: 40px;               /* minimum comfortable touch target */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:           #14161a;
+    --bg-soft:      #1c1f25;
+    --bg-sunk:      #23272e;
+    --text:         #e6e9ee;
+    --text-soft:    #a8b1bd;
+    --text-faint:   #78828f;
+    --border:       #2c313a;
+    --accent:       #5cc2dd;
+    --accent-soft:  #17323b;
+    --accent-hover: #8ad8ee;
+    --award:        #e0a75c;
+    --award-soft:   #33281a;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;          /* belt and braces against phone side-scroll */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: clamp(15.5px, 0.35vw + 15px, 16.5px);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+
+a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 { color: var(--text); line-height: 1.25; margin: 0 0 .5em; font-weight: 640; }
+h1 { font-size: clamp(1.5rem, 1.2rem + 1vw, 1.75rem); letter-spacing: -.01em; }
+h2 { font-size: .95rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-soft); font-weight: 650; }
+h3 { font-size: 1.02rem; }
+p  { margin: 0 0 1.05em; }
+
+::selection { background: var(--accent-soft); }
+
+.skip {
+  position: absolute; left: -9999px;
+  background: var(--accent); color: #fff;
+  padding: 10px 16px; border-radius: var(--radius); z-index: 100;
+}
+.skip:focus { left: 16px; top: 16px; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ==========================================================================
+   Layout — single column by default, sidebar added at 900px
+   ========================================================================== */
+
+.layout {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 28px 18px 56px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+main { min-width: 0; }
+.section { margin-bottom: 46px; scroll-margin-top: 24px; }
+
+/* ==========================================================================
+   Sidebar / header block
+   ========================================================================== */
+
+.sidebar { min-width: 0; }
+
+.avatar {
+  width: 104px; height: 104px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.name { margin-bottom: 4px; }
+
+.affil {
+  color: var(--text-soft);
+  font-size: .93rem;
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+.affil strong { color: var(--text); font-weight: 600; }
+
+.email {
+  margin: -6px 0 14px;
+  font-size: .87rem;
+  color: var(--text-soft);
+  overflow-wrap: anywhere;
+}
+
+.social {
+  display: flex; flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.social a {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: var(--tap); min-height: var(--tap);
+  color: var(--text-soft);
+  font-size: 1.16rem; line-height: 1;
+  border-radius: 8px;
+  transition: color .15s ease, background .15s ease;
+}
+.social a:hover { color: var(--accent); background: var(--accent-soft); text-decoration: none; }
+
+.sidenav { display: none; }
+
+/* ==========================================================================
+   About
+   ========================================================================== */
+
+.about { font-size: .94rem; line-height: 1.65; }
+.about .lede { font-size: inherit; color: var(--text); }
+.about strong { font-weight: 640; color: var(--text); }
+
+/* The three research directions. Tinted and underscored so they read as a set
+   without breaking the paragraph into a list. */
+.about strong.dir {
+  color: var(--accent);
+  font-weight: 620;
+  box-shadow: inset 0 -0.42em 0 var(--accent-soft);
+  padding: 0 .12em;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   Research overview
+   ========================================================================== */
+
+.overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+
+.ov-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Square illustrations. White-background art, so the stage stays white in dark
+   mode too rather than putting a bright square on a dark card. */
+.ov-figure {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.ov-figure img {
+  width: auto;
+  max-width: 100%;
+  max-height: 190px;
+  object-fit: contain;
+}
+.ov-figure svg {           /* fallback if a card still points at inline art */
+  width: 100%; max-width: 260px; height: auto; display: block;
+}
+
+.ov-body { padding: 16px 18px 18px; }
+.ov-eyebrow {
+  margin: 0 0 -1px;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.ov-body h3 { font-size: 1.05rem; margin-bottom: 8px; color: var(--text); line-height: 1.3; }
+.ov-body p  { margin: 0 0 12px; font-size: .93rem; color: var(--text-soft); line-height: 1.55; }
+
+.ov-papers { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); padding-top: 10px; }
+.ov-papers li { margin-bottom: 5px; font-size: .79rem; line-height: 1.45; }
+.ov-papers .venue.sm { font-size: .66rem; padding: 1px 5px; }
+.ov-papers li:last-child { margin-bottom: 0; }
+.ov-papers a { color: var(--text-soft); }
+.ov-papers a:hover { color: var(--accent); }
+
+/* ==========================================================================
+   News — scrollable panel
+   ========================================================================== */
+
+.news-scroll {
+  max-height: 248px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px 14px;
+  background: var(--bg-soft);
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-faint) transparent;
+}
+.news-scroll::-webkit-scrollbar { width: 9px; }
+.news-scroll::-webkit-scrollbar-track { background: transparent; }
+.news-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 99px;
+  border: 2px solid var(--bg-soft);
+}
+.news-scroll::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+.news { list-style: none; margin: 0; padding: 0; }
+.news li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .865rem;
+}
+.news li:last-child { border-bottom: 0; }
+.news time {
+  color: var(--text-faint);
+  font-size: .765rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .02em;
+}
+.news .body { color: var(--text-soft); }
+.news .ico { margin-right: 6px; }
+
+/* ==========================================================================
+   Buttons and filters
+   ========================================================================== */
+
+.btn {
+  display: inline-flex; align-items: center;
+  min-height: 34px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-soft);
+  font: inherit;
+  font-size: .84rem;
+  padding: 4px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .15s ease;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn[aria-pressed="true"] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 560;
+}
+
+/* ==========================================================================
+   Publication entries
+   ========================================================================== */
+
+.pubs { display: grid; gap: 0; }
+
+.pub { padding: 15px 0; border-bottom: 1px solid var(--border); }
+.pub:last-child { border-bottom: 0; }
+.pub[hidden] { display: none; }
+
+/* Block, not flex: the chip sits inline so the title begins on the same line and
+   wraps underneath it as ordinary text instead of being pushed to its own row. */
+.pub-head {
+  margin-bottom: 3px;
+  line-height: 1.45;
+}
+
+.venue {
+  display: inline-block;
+  margin-right: 7px;
+  position: relative;
+  top: -1px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-size: .75rem;
+  font-weight: 650;
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+.venue.sm { padding: 1px 6px; font-size: .7rem; }
+
+.pub-title {
+  font-weight: 620;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+a.pub-title:hover { color: var(--accent); }
+
+.awards { margin: 3px 0 4px; display: flex; flex-wrap: wrap; gap: 6px; }
+.award-tag {
+  display: inline-block;
+  background: var(--award-soft);
+  color: var(--award);
+  border-radius: 5px;
+  padding: 1px 8px;
+  font-size: .74rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.authors { color: var(--text-soft); font-size: .91rem; margin: 2px 0 1px; }
+.authors .me { color: var(--text); font-weight: 650; }
+
+.venue-full { color: var(--text-faint); font-size: .84rem; font-style: italic; margin-bottom: 8px; }
+
+.pub-links { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.pub-links a, .pub-links button {
+  display: inline-flex; align-items: center;
+  min-height: 30px;
+  font-size: .81rem;
+  color: var(--text-soft);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: all .15s ease;
+}
+.pub-links a:hover, .pub-links button:hover {
+  color: var(--accent); border-color: var(--accent); text-decoration: none;
+}
+.pub-links button[aria-expanded="true"] {
+  color: var(--accent); border-color: var(--accent); background: var(--accent-soft);
+}
+
+.panel {
+  position: relative;
+  margin-top: 11px;
+  background: var(--bg-sunk);
+  border-radius: var(--radius);
+  padding: 13px 15px;
+  font-size: .89rem;
+  color: var(--text-soft);
+  line-height: 1.58;
+}
+.panel[hidden] { display: none; }
+
+.panel-tools {
+  position: absolute;
+  top: 8px;
+  left: 15px;
+  z-index: 1;
+}
+
+.copy-btn {
+  min-height: 26px;
+  padding: 2px 11px;
+  font: inherit;
+  font-size: .76rem;
+  color: var(--text-soft);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+.copy-btn.copied { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.panel pre {
+  margin: 0;
+  padding-top: 30px;          /* clears the floating Copy button */
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  line-height: 1.55;
+  white-space: pre;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  color: var(--text-soft);
+}
+
+.press { margin: 9px 0 0; padding: 0; list-style: none; }
+.press li {
+  font-size: .85rem;
+  color: var(--text-soft);
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 3px;
+}
+.press li::before {
+  content: "›";
+  position: absolute; left: 3px; top: -1px;
+  color: var(--text-faint);
+}
+
+.pubs-note {
+  margin: -6px 0 22px;
+  font-size: .87rem;
+  color: var(--text-faint);
+  font-style: italic;
+}
+.pubs-note a { color: var(--accent); }
+
+/* ==========================================================================
+   Recent talks
+   ========================================================================== */
+
+.talks { list-style: none; margin: 0; padding: 0; }
+.talks li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  padding: 5px 0;
+  font-size: .92rem;
+}
+.talks li[hidden] { display: none; }
+.more-btn { margin-top: 14px; }
+.talks .yr {
+  color: var(--text-faint);
+  font-size: .8rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .02em;
+}
+.talks .tv-host { font-weight: 600; color: var(--text); }
+.talks .tv-host a { font-weight: 600; }
+.talks .host { color: var(--text-soft); font-size: .88rem; }
+
+/* ==========================================================================
+   Kabi
+   ========================================================================== */
+
+.kabi p {
+  margin: 0 0 12px;
+  font-size: .93rem;
+  color: var(--text-soft);
+}
+.kabi p .fa-paw { color: var(--accent); margin-left: 3px; }
+.kabi img {
+  width: 100%;
+  max-width: 280px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+  color: var(--text-faint);
+  font-size: .84rem;
+}
+
+.loading { color: var(--text-faint); font-size: .92rem; }
+
+/* ==========================================================================
+   Tablet — 640px and up
+   ========================================================================== */
+
+@media (min-width: 640px) {
+  .layout { padding: 40px 28px 68px; }
+  .section { margin-bottom: 54px; }
+
+  .sidebar {
+    display: grid;
+    grid-template-columns: 128px minmax(0, 1fr);
+    gap: 24px;
+    align-items: center;
+  }
+  .avatar { width: 128px; height: 128px; margin-bottom: 0; }
+  .social { margin-bottom: 0; }
+
+  .news li, .talks li {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 14px;
+  }
+  .news li { grid-template-columns: 92px minmax(0, 1fr); }
+  .news time, .talks .yr { padding-top: 2px; }
+  .talks li { grid-template-columns: 92px minmax(0, 1fr); }
+
+  .overview { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+}
+
+/* ==========================================================================
+   Desktop — 900px and up: sidebar becomes a sticky rail
+   ========================================================================== */
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: var(--side) minmax(0, 1fr);
+    gap: 56px;
+    padding: 56px 32px 80px;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 36px;
+    display: block;
+  }
+  .avatar { width: 158px; height: 158px; margin-bottom: 18px; }
+  .social { margin-bottom: 20px; margin-left: -8px; }
+
+  .sidenav {
+    display: block;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+  .sidenav a {
+    display: block;
+    padding: 5px 0;
+    font-size: .89rem;
+    color: var(--text-soft);
+    letter-spacing: .02em;
+  }
+  .sidenav a:hover { color: var(--accent); text-decoration: none; }
+
+  .section { margin-bottom: 60px; }
+  .news-scroll { max-height: 268px; }
+
+  /* Three cards read better as a single column of wide rows than as an
+     orphaned 2 + 1 grid. Art sits beside the text at this width. */
+  .overview { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .ov-card { flex-direction: row; align-items: stretch; }
+  .ov-figure {
+    flex: 0 0 216px;
+    border-bottom: 0;
+    border-right: 1px solid var(--border);
+  }
+  .ov-figure img { max-height: 208px; }
+  .ov-figure svg { max-width: 200px; }
+  .ov-body { flex: 1 1 auto; padding: 18px 22px; }
+}
+
+/* ==========================================================================
+   Small phones — 380px and below
+   ========================================================================== */
+
+@media (max-width: 380px) {
+  .layout { padding: 22px 14px 44px; }
+  .avatar { width: 88px; height: 88px; }
+  .news-scroll { max-height: 216px; padding: 4px 11px; }
+  .ov-figure { padding: 4px; }
+  .ov-figure img { max-height: 160px; }
+  .ov-figure svg { max-width: 210px; }
+  .ov-body { padding: 14px 15px 15px; }
+}
+
+/* ==========================================================================
+   Print
+   ========================================================================== */
+
+@media print {
+  .sidenav, .pub-links button, .social { display: none; }
+  body { font-size: 11pt; color: #000; background: #fff; }
+  .layout { display: block; max-width: none; padding: 0; }
+  .panel { display: none !important; }
+  .news-scroll { max-height: none; overflow: visible; border: 0; padding: 0; background: none; }
+  .overview { display: block; }
+  a { color: #000; }
+}

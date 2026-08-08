@@ -1,0 +1,219 @@
+[
+  {
+    "id": "zhou2026ai",
+    "title": "AI as We Describe It: How Large Language Models and Their Applications in Health are Represented Across Channels of Public Discourse",
+    "authors": ["Jiawei Zhou", "Lei Zhang", "Mei Li", "Benjamin D. Horne", "Munmun De Choudhury"],
+    "venue": "CHI'26",
+    "venueFull": "Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems, Article 393, 22 pages.",
+    "year": 2026,
+    "themes": ["ai-health"],
+    "featured": true,
+    "image": "assets/img/discourse.png",
+    "links": {
+      "pdf": "assets/chi26_public_discourse.pdf",
+      "doi": "https://doi.org/10.1145/3772318.3790316"
+    },
+    "abstract": "Representation shapes public attitudes and behaviors. With the recent advances and rapid adoption of LLMs, the way these systems are introduced will negotiate societal expectations for their role in high-stakes domains like health. Yet it remains unclear whether current narratives present a balanced view. We analyzed five prominent discourse channels (news, research press, YouTube, TikTok, and Reddit) over a two-year period on lexical style, informational content, and symbolic representation. Discussions were generally positive and episodic, with positivity increasing over time. Risk communication was unthorough and often reduced to information quality incidents, while explanations of LLMs' generative nature were rare. Compared with professional outlets, TikTok and Reddit highlighted wellbeing applications and showed greater variations in tone and anthropomorphism but little attention to risks. We discuss implications for public discourse as a diagnostic tool in identifying literacy and governance gaps, and for communication and design strategies to support more informed LLM engagement.",
+    "bibtex": "@inproceedings{zhou2026ai,\n  title     = {AI as We Describe It: How Large Language Models and Their Applications in Health are Represented Across Channels of Public Discourse},\n  author    = {Zhou, Jiawei and Zhang, Lei and Li, Mei and Horne, Benjamin D and De Choudhury, Munmun},\n  booktitle = {Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems},\n  year      = {2026},\n  isbn      = {9798400722783},\n  publisher = {Association for Computing Machinery},\n  address   = {New York, NY, USA},\n  url       = {https://doi.org/10.1145/3772318.3790316},\n  doi       = {10.1145/3772318.3790316},\n  articleno = {393},\n  numpages  = {22},\n  series    = {CHI '26}\n}"
+  },
+  {
+    "id": "zhou2026communication",
+    "title": "Communication styles and reader preferences of LLM- and human-authored COVID-19 information explanations: a case study",
+    "authors": ["Jiawei Zhou*", "Kritika Venkatachalam*", "Minje Choi", "Koustuv Saha", "Munmun De Choudhury"],
+    "venue": "BMC AI",
+    "venueFull": "BMC Artificial Intelligence 2, Article 10 (2026). *Equal contribution.",
+    "year": 2026,
+    "themes": ["ai-health"],
+    "featured": false,
+    "links": {
+      "pdf": "assets/bmc_health_info_explain.pdf",
+      "doi": "https://doi.org/10.1186/s44398-026-00030-z"
+    },
+    "abstract": "With the wide adoption of large language models (LLMs) in assisting professionals to create and share information, it is essential to examine their alignment with human communication styles and values in achieving communication effectiveness and acceptability. We situate this study within the context of explaining fact-checked health information, with a focus on communication styles because they influence whether explanations and corrections are understood, trusted, and acted upon. We compiled a dataset of 1498 misinformation claims and corresponding explanations from authoritative fact-checking organizations, generated LLM fact-checking responses using chain-of-thought prompting, and categorized communication styles along linguistic, persuasion, and value-based dimensions. We then examined preferences of 99 participants who were unaware of LLM involvement. LLM-generated articles scored significantly lower on persuasive strategies, certainty expressions, and alignment with social values and moral foundations, yet over 60% of readers preferred them for clarity, completeness, and persuasiveness. This preference was driven by structured presentation and neutral tone, which may foster an impression of completeness and professionalism even when the underlying content lacks nuance or rigor. The results indicate both the potential and the limitations of using LLMs in health communication and fact-checking workflows.",
+    "bibtex": "@article{zhou2026communication,\n  author  = {Zhou, Jiawei and Venkatachalam, Kritika and Choi, Minje and Saha, Koustuv and De Choudhury, Munmun},\n  title   = {Communication styles and reader preferences of LLM- and human-authored COVID-19 information explanations: a case study},\n  journal = {BMC Artificial Intelligence},\n  year    = {2026},\n  volume  = {2},\n  number  = {1},\n  pages   = {10},\n  note    = {Jiawei Zhou and Kritika Venkatachalam contributed equally.},\n  url     = {https://doi.org/10.1186/s44398-026-00030-z},\n  doi     = {10.1186/s44398-026-00030-z}\n}"
+  },
+  {
+    "id": "zhou2025risk",
+    "title": "A Risk Taxonomy and Reflection Tool for Large Language Model Adoption in Public Health",
+    "authors": ["Jiawei Zhou", "Amy Z. Chen", "Darshi Shah", "Laura M. Schwab Reese", "Munmun De Choudhury"],
+    "venue": "CSCW'25",
+    "venueFull": "Proc. ACM Hum.-Comput. Interact. 9, 7, Article CSCW363 (November 2025), 32 pages.",
+    "year": 2025,
+    "themes": ["ai-health"],
+    "featured": true,
+    "image": "assets/img/llm_health.png",
+    "links": {
+      "pdf": "assets/cscw25_llm_health.pdf",
+      "doi": "https://doi.org/10.1145/3757544"
+    },
+    "press": [
+      "Invited talk @ <a href=\"https://hwutemple.github.io/AIME25WorkshopAIPHSS/\">International Conference on AI in Medicine (AIME'25)</a> Workshop on AI Applications in Public Health and Social Services",
+      "Invited talk @ <a href=\"https://apha.confex.com/apha/2025/meetingapp.cgi/Session/75396\">American Public Health Association (APHA) Annual Meeting 2025</a>, AJPH curated session on Ethical Use of AI in Public Health"
+    ],
+    "abstract": "Recent breakthroughs in large language models (LLMs) have generated both interest and concern about their potential adoption as information sources or communication tools across different domains. In public health, where stakes are high and impacts extend across diverse populations, adopting LLMs poses unique challenges that require thorough evaluation. However, structured approaches for assessing potential risks in public health remain under-explored. To address this gap, we conducted focus groups with public health professionals and individuals with lived experience to unpack their concerns, situated across three distinct and critical public health issues that demand high-quality information: infectious disease prevention (vaccines), chronic and well-being care (opioid use disorder), and community health and safety (intimate partner violence). We synthesize participants' perspectives into a risk taxonomy, distinguishing and contextualizing the potential harms LLMs may introduce when positioned alongside traditional health communication. This taxonomy highlights four dimensions of risk to individuals, human-centered care, information ecosystem, and technology accountability. For each dimension, we discuss specific risks and offer example reflection questions to help practitioners adopt a risk-reflexive approach. We discuss the need to revisit pre-existing mental models of help-seeking and complement evaluations with external validity and domain expertise through lived experience and real-world practices. Together, this work contributes a shared vocabulary and reflection tool for people in both computing and public health to collaboratively anticipate, evaluate, and mitigate risks in deciding when to employ LLM capabilities (or not) and how to mitigate harm.",
+    "bibtex": "@article{zhou2025risk,\n  author    = {Zhou, Jiawei and Chen, Amy Z. and Shah, Darshi and Schwab-Reese, Laura M. and De Choudhury, Munmun},\n  title     = {A Risk Taxonomy and Reflection Tool for Large Language Model Adoption in Public Health},\n  year      = {2025},\n  month     = {nov},\n  publisher = {Association for Computing Machinery},\n  address   = {New York, NY, USA},\n  volume    = {9},\n  number    = {7},\n  url       = {https://doi.org/10.1145/3757544},\n  journal   = {Proc. ACM Hum.-Comput. Interact.},\n  articleno = {363},\n  numpages  = {32}\n}"
+  },
+  {
+    "id": "zhou2025harm",
+    "title": "Harm in Layers: Compositions of Misinformative Hate in Anti-Asian Speech and Impacts on Perceived Harmfulness",
+    "authors": ["Jiawei Zhou", "Gaurav Verma", "Lei Zhang", "Nicholas Chang", "Munmun De Choudhury"],
+    "venue": "CSCW'25",
+    "venueFull": "Proc. ACM Hum.-Comput. Interact. 9, 2, Article CSCW092 (April 2025), 22 pages.",
+    "year": 2025,
+    "themes": ["ecosystem"],
+    "featured": true,
+    "awards": ["Best Paper", "DEI Recognition"],
+    "image": "assets/img/misinformative_hate.png",
+    "links": {
+      "pdf": "assets/cscw25_misinformative_hate.pdf",
+      "doi": "https://doi.org/10.1145/3710990"
+    },
+    "abstract": "During times of crisis, heightened anxiety and fear create fertile ground for hate speech and misinformation, as people are more likely to fall for and be influenced by it. This paper looks into the interwoven relationship between anti-Asian hatred and COVID-19 misinformation amid the pandemic. By analyzing 785,798 Asian hate tweets and surveying 308 diverse participants, this empirical study explores how hateful content portrays the Asian community, including its truthfulness and targets, as well as what makes such portrayals harmful. We observed a high prevalence of misinformative hate speech that was lengthier, less emotional, and expressed more motivational drives than general hate speech. Overall, we found that anti-Asian rhetoric was characterized by an antagonism and inferiority framing, with misinformative hate underscoring antagonism and general hate emphasizing calls for action. Among all entities being explicitly criticized, China and the Chinese were constantly named to assign blame, with misinformative hate more likely to finger-point than general hate. Our survey results indicated that hateful messages with misinformation, demographic targeting, or divisive references were perceived as significantly more damaging. Individuals who placed less importance on free speech, had personal encounters with hate speech, or believed in the natural origin of COVID-19 were more likely to perceive higher severity. Taken together, this work highlights the distinct compositions of hate within misinformative hate speech that influences perceived harmfulness and adds to the complexity of defining and moderating harmful content. We discuss the implications for designing more context- and culture-sensitive counter-strategies and building more adaptive and explainable moderation approaches.",
+    "bibtex": "@article{zhou2025harm,\n  author    = {Zhou, Jiawei and Verma, Gaurav and Zhang, Lei and Chang, Nicholas and De Choudhury, Munmun},\n  title     = {Harm in Layers: Compositions of Misinformative Hate in Anti-Asian Speech and Impacts on Perceived Harmfulness},\n  year      = {2025},\n  month     = {apr},\n  publisher = {Association for Computing Machinery},\n  address   = {New York, NY, USA},\n  volume    = {9},\n  number    = {2},\n  url       = {https://doi.org/10.1145/3710990},\n  journal   = {Proc. ACM Hum.-Comput. Interact.},\n  articleno = {92},\n  numpages  = {22}\n}"
+  },
+  {
+    "id": "zhou2023synthetic",
+    "title": "Synthetic Lies: Understanding AI-Generated Misinformation and Evaluating Algorithmic and Human Solutions",
+    "authors": ["Jiawei Zhou", "Yixuan Zhang", "Qianni Luo", "Andrea G. Parker", "Munmun De Choudhury"],
+    "venue": "CHI'23",
+    "venueFull": "Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems, pp. 1-20.",
+    "year": 2023,
+    "themes": ["ai-health", "ecosystem"],
+    "featured": true,
+    "awards": ["Best Paper Honorable Mention"],
+    "image": "assets/img/ai-misinfo.png",
+    "links": {
+      "pdf": "assets/chi23_ai_misinfo.pdf",
+      "doi": "https://doi.org/10.1145/3544548.3581318"
+    },
+    "press": [
+      "Invited talk @ <a href=\"https://alumni.csiro.au/events/synthetic-lies-misinformation-in-the-age-of-large-language-models/\">Australian National Science Agency CSIRO Human Centric AI Seminars</a>, Amazon AWS Responsible AI Science",
+      "Cited as evidence by the <a href=\"https://www.gov.uk/cma-cases/ai-foundation-models-initial-review\">UK government's AI Foundation Models Initial Review</a>",
+      "Covered by <a href=\"https://www.cnet.com/news/misinformation/ai-misinformation-how-it-works-and-ways-to-spot-it/\">CNET</a>, National Business Daily, and <a href=\"https://www.cc.gatech.edu/news/chi-2023-misinformation-detection-models-are-vulnerable-chatgpt-and-other-llms\">Georgia Tech CoC Press</a>"
+    ],
+    "abstract": "Large language models have abilities in creating high-volume human-like texts and can be used to generate persuasive misinformation. However, the risks remain under-explored. To address the gap, this work first examined characteristics of AI-generated misinformation (AI-misinfo) compared with human creations, and then evaluated the applicability of existing solutions. We compiled human-created COVID-19 misinformation and abstracted it into narrative prompts for a language model to output AI-misinfo. We found significant linguistic differences within human-AI pairs, and patterns of AI-misinfo in enhancing details, communicating uncertainties, drawing conclusions, and simulating personal tones. While existing models remained capable of classifying AI-misinfo, a significant performance drop compared to human-misinfo was observed. Results suggested that existing information assessment guidelines had questionable applicability, as AI-misinfo tended to meet criteria in evidence credibility, source transparency, and limitation acknowledgment. We discuss implications for practitioners, researchers, and journalists, as AI can create new challenges to the societal problem of misinformation.",
+    "bibtex": "@inproceedings{zhou2023synthetic,\n  title     = {Synthetic Lies: Understanding AI-Generated Misinformation and Evaluating Algorithmic and Human Solutions},\n  author    = {Zhou, Jiawei and Zhang, Yixuan and Luo, Qianni and Parker, Andrea G and De Choudhury, Munmun},\n  booktitle = {Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems},\n  pages     = {1--20},\n  year      = {2023},\n  isbn      = {9781450394215},\n  publisher = {Association for Computing Machinery},\n  address   = {New York, NY, USA},\n  url       = {https://doi.org/10.1145/3544548.3581318},\n  doi       = {10.1145/3544548.3581318},\n  series    = {CHI '23}\n}"
+  },
+  {
+    "id": "verma25vertical",
+    "title": "A Framework for Situating Innovations, Opportunities, and Challenges in Advancing Vertical Systems with Large AI Models",
+    "authors": ["Gaurav Verma", "Jiawei Zhou", "Mohit Chandra", "Srijan Kumar", "Munmun De Choudhury"],
+    "venue": "AIES'25",
+    "venueFull": "Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society 2025.",
+    "year": 2025,
+    "themes": ["ai-health"],
+    "featured": false,
+    "links": {
+      "pdf": "assets/aies25_ai_vertical_systems.pdf",
+      "doi": "https://ojs.aaai.org/index.php/AIES/article/view/36739",
+      "webpage": "https://gaurav22verma.github.io/vertical-systems-with-large-ai-models"
+    },
+    "bibtex": "@inproceedings{verma25vertical,\n  title     = {A Framework for Situating Innovations, Opportunities, and Challenges in Advancing Vertical Systems with Large AI Models},\n  author    = {Verma, Gaurav and Zhou, Jiawei and Chandra, Mohit and Kumar, Srijan and De Choudhury, Munmun},\n  booktitle = {Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society},\n  month     = oct,\n  year      = {2025}\n}"
+  },
+  {
+    "id": "verma24violence",
+    "title": "A Community-Centric Perspective for Characterizing and Detecting Anti-Asian Violence-Provoking Speech",
+    "authors": ["Gaurav Verma", "Rynaa Grover", "Jiawei Zhou", "Binny Mathew", "Jordan Kraemer", "Munmun De Choudhury", "Srijan Kumar"],
+    "venue": "ACL'24",
+    "venueFull": "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pp. 12672-12684.",
+    "year": 2024,
+    "themes": ["ecosystem"],
+    "featured": false,
+    "links": {
+      "pdf": "assets/acl24_violence_provoking_hate.pdf",
+      "doi": "https://aclanthology.org/2024.acl-long.684/",
+      "webpage": "https://claws-lab.github.io/violence-provoking-speech/"
+    },
+    "bibtex": "@inproceedings{verma24violence,\n  title     = {A Community-Centric Perspective for Characterizing and Detecting Anti-Asian Violence-Provoking Speech},\n  author    = {Verma, Gaurav and Grover, Rynaa and Zhou, Jiawei and Mathew, Binny and Kraemer, Jordan and De Choudhury, Munmun and Kumar, Srijan},\n  booktitle = {Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},\n  month     = aug,\n  year      = {2024},\n  address   = {Bangkok, Thailand},\n  publisher = {Association for Computational Linguistics},\n  url       = {https://aclanthology.org/2024.acl-long.684},\n  pages     = {12672--12684}\n}"
+  },
+  {
+    "id": "evans2024using",
+    "title": "Using Sensor-Captured Patient-Generated Data to Support Clinical Decision-making in PTSD Therapy",
+    "authors": ["Hayley I. Evans", "Myeonghan Ryu", "Theresa Hsieh", "Jiawei Zhou", "Kefan Xu", "Kenneth W. Akers", "Andrew M. Sherrill", "Rosa I. Arriaga"],
+    "venue": "CSCW'24",
+    "venueFull": "Proceedings of the ACM on Human-Computer Interaction 8, no. CSCW1 (2024): 1-28.",
+    "year": 2024,
+    "themes": ["clinical", "wellbeing"],
+    "featured": false,
+    "links": {
+      "pdf": "assets/cscw24_sensor_ptsd.pdf",
+      "doi": "https://dl.acm.org/doi/10.1145/3637426"
+    },
+    "bibtex": "@article{evans2024using,\n  author    = {Evans, Hayley I. and Ryu, Myeonghan and Hsieh, Theresa and Zhou, Jiawei and Xu, Kefan and Akers, Kenneth W. and Sherrill, Andrew M. and Arriaga, Rosa I.},\n  title     = {Using Sensor-Captured Patient-Generated Data to Support Clinical Decision-making in PTSD Therapy},\n  year      = {2024},\n  month     = {apr},\n  publisher = {Association for Computing Machinery},\n  address   = {New York, NY, USA},\n  volume    = {8},\n  number    = {CSCW1},\n  url       = {https://doi.org/10.1145/3637426},\n  doi       = {10.1145/3637426},\n  journal   = {Proc. ACM Hum.-Comput. Interact.},\n  articleno = {149},\n  numpages  = {28}\n}"
+  },
+  {
+    "id": "park2023exergy",
+    "title": "Exergy: A Toolkit to Simplify Creative Applications of Wind Energy Harvesting",
+    "authors": ["Jung Wook Park", "Sienna Xin Sun", "Tingyu Cheng", "Dong Whi Yoo", "Jiawei Zhou", "Youngwook Do", "Gregory D. Abowd", "Rosa I. Arriaga"],
+    "venue": "UbiComp'23",
+    "venueFull": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies 7, no. 1 (2023): 1-28.",
+    "year": 2023,
+    "themes": ["other"],
+    "featured": false,
+    "links": {
+      "pdf": "assets/imwut23_exergy.pdf",
+      "doi": "https://dl.acm.org/doi/10.1145/3580814"
+    },
+    "bibtex": "@article{park2023exergy,\n  author    = {Park, Jung Wook and Sun, Sienna Xin and Cheng, Tingyu and Yoo, Dong Whi and Zhou, Jiawei and Do, Youngwook and Abowd, Gregory D. and Arriaga, Rosa I.},\n  title     = {Exergy: A Toolkit to Simplify Creative Applications of Wind Energy Harvesting},\n  journal   = {Proc. ACM Interact. Mob. Wearable Ubiquitous Technol.},\n  year      = {2023},\n  volume    = {7},\n  number    = {1},\n  pages     = {1--28},\n  publisher = {ACM New York, NY, USA},\n  url       = {https://doi.org/10.1145/3580814}\n}"
+  },
+  {
+    "id": "huang2023characterizing",
+    "title": "Characterizing the Users of Patient Portal Messaging: A Single Institutional Cohort Study",
+    "authors": ["Ming Huang*", "Aditya Khurana*", "George Mastorakos*", "Jiawei Zhou", "Nansu Zong", "Yue Yu", "Julie E. Prigge", "Christi A. Patten", "Hongfang Liu", "Brian A. Costello"],
+    "venue": "ICHI'23",
+    "venueFull": "IEEE 11th International Conference on Healthcare Informatics (ICHI), pp. 381-387, IEEE, 2023.",
+    "year": 2023,
+    "themes": ["clinical"],
+    "featured": false,
+    "links": {
+      "pdf": "assets/ichi23_portal_user.pdf",
+      "doi": "https://doi.org/10.1109/ICHI57859.2023.00057"
+    },
+    "bibtex": "@inproceedings{huang2023characterizing,\n  author    = {Huang, Ming and Khurana, Aditya and Mastorakos, George and Zhou, Jiawei and Zong, Nansu and Yu, Yue and Prigge, Julie E. and Patten, Christi A. and Liu, Hongfang and Costello, Brian A.},\n  booktitle = {2023 IEEE 11th International Conference on Healthcare Informatics (ICHI)},\n  title     = {Characterizing the Users of Patient Portal Messaging: A Single Institutional Cohort Study},\n  year      = {2023},\n  pages     = {381--387},\n  doi       = {10.1109/ICHI57859.2023.00057}\n}"
+  },
+  {
+    "id": "zhou2022veteran",
+    "title": "Veteran Critical Theory as a Lens to Understand Veterans' Needs and Support on Social Media",
+    "authors": ["Jiawei Zhou", "Koustuv Saha", "Irene Michelle Lopez Carron", "Dong Whi Yoo", "Catherine R. Deeter", "Munmun De Choudhury", "Rosa I. Arriaga"],
+    "venue": "CSCW'22",
+    "venueFull": "Proceedings of the ACM on Human-Computer Interaction 6, no. CSCW1 (2022): 1-28.",
+    "year": 2022,
+    "themes": ["wellbeing"],
+    "featured": false,
+    "links": {
+      "pdf": "assets/cscw22_vct.pdf",
+      "doi": "https://dl.acm.org/doi/10.1145/3512980"
+    },
+    "bibtex": "@article{zhou2022veteran,\n  author    = {Zhou, Jiawei and Saha, Koustuv and Lopez Carron, Irene Michelle and Yoo, Dong Whi and Deeter, Catherine R. and De Choudhury, Munmun and Arriaga, Rosa I.},\n  title     = {Veteran Critical Theory as a Lens to Understand Veterans' Needs and Support on Social Media},\n  journal   = {Proceedings of the ACM on Human-Computer Interaction},\n  volume    = {6},\n  number    = {CSCW1},\n  pages     = {1--28},\n  year      = {2022},\n  publisher = {ACM New York, NY, USA},\n  url       = {https://doi.org/10.1145/3512980}\n}"
+  },
+  {
+    "id": "zhou2022tale",
+    "title": "A Tale of Two Perspectives: Harvesting System Views and User Views to Understand Patient Portal Engagement",
+    "authors": ["Jiawei Zhou", "Rosa I. Arriaga", "Hongfang Liu", "Ming Huang"],
+    "venue": "ICHI'22",
+    "venueFull": "IEEE 10th International Conference on Healthcare Informatics (ICHI), pp. 373-383, IEEE, 2022.",
+    "year": 2022,
+    "themes": ["clinical"],
+    "featured": false,
+    "links": {
+      "pdf": "assets/ichi22_portal_engagement.pdf",
+      "doi": "https://doi.org/10.1109/ICHI54592.2022.00059"
+    },
+    "bibtex": "@inproceedings{zhou2022tale,\n  title     = {A Tale of Two Perspectives: Harvesting System Views and User Views to Understand Patient Portal Engagement},\n  author    = {Zhou, Jiawei and Arriaga, Rosa I and Liu, Hongfang and Huang, Ming},\n  booktitle = {2022 IEEE 10th International Conference on Healthcare Informatics (ICHI)},\n  pages     = {373--383},\n  year      = {2022},\n  organization = {IEEE}\n}"
+  },
+  {
+    "id": "evans2022perspectives",
+    "title": "Perspectives on Integrating Trusted Other Feedback in Therapy for Veterans with PTSD",
+    "authors": ["Hayley I. Evans", "Catherine R. Deeter", "Jiawei Zhou", "Kimberly Do", "Andrew M. Sherrill", "Rosa I. Arriaga"],
+    "venue": "CHI'22",
+    "venueFull": "Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems, pp. 1-16.",
+    "year": 2022,
+    "themes": ["clinical", "wellbeing"],
+    "featured": false,
+    "links": {
+      "pdf": "assets/chi22_trusted_other.pdf",
+      "doi": "https://dl.acm.org/doi/10.1145/3491102.3517513"
+    },
+    "bibtex": "@inproceedings{evans2022perspectives,\n  title     = {Perspectives on Integrating Trusted Other Feedback in Therapy for Veterans with PTSD},\n  author    = {Evans, Hayley Irene and Deeter, Catherine R and Zhou, Jiawei and Do, Kimberly and Sherrill, Andrew M and Arriaga, Rosa I},\n  booktitle = {Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems},\n  pages     = {1--16},\n  year      = {2022}\n}"
+  }
+]

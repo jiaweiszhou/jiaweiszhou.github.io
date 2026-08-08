@@ -1,0 +1,19 @@
+[
+  { "date": "Apr 2026", "kind": "talk", "html": "Talk @ University of Maryland, Notre Dame, Rice University" },
+  { "date": "Mar 2026", "kind": "talk", "html": "Talk @ University of Illinois Urbana-Champaign &amp; Georgia Tech" },
+  { "date": "Feb 2026", "kind": "talk", "html": "Talk @ University of North Carolina at Chapel Hill, School of Nursing T32 series talk" },
+  { "date": "Jan 2026", "kind": "paper", "html": "Our paper \"AI as We Describe It: How Large Language Models and Their Applications in Health are Represented Across Channels of Public Discourse\" is accepted to <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://chi2026.acm.org/\">CHI'26</a>. See you in Barcelona☀️" },
+  { "date": "Nov 2025", "kind": "talk", "html": "Attended AMIA in Atlanta" },
+  { "date": "Nov 2025", "kind": "talk", "html": "Invited panelist @ <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://apha.confex.com/apha/2025/meetingapp.cgi/Session/75396\">APHA Annual Meeting</a> in DC." },
+  { "date": "Oct 2025", "kind": "talk", "html": "Presented 2 papers &amp; 1 workshop work @ <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://cscw.acm.org/2025/\">CSCW</a> in Norway." },
+  { "date": "Oct 2025", "kind": "award", "html": "Our paper \"Harm in Layers: Compositions of Misinformative Hate in Anti-Asian Speech and Impacts on Perceived Harmfulness\" received <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://programs.sigchi.org/cscw/2025/program/content/213085\">Best Paper + DEI Recognition</a> at CSCW!" },
+  { "date": "July 2025", "kind": "milestone", "html": "I passed my thesis proposal! Now I'm a PhD candidate:)" },
+  { "date": "July 2025", "kind": "paper", "html": "Two paper accepts! 1) \"A Risk Taxonomy and Reflection Tool for LLM Adoption in Public Health\" is accepted to CSCW'25, and 2) \"A Framework for Situating Innovations, Opportunities, and Challenges in Advancing Vertical Systems with Large AI Models\" is accepted to AIES'25." },
+  { "date": "June 2025", "kind": "talk", "html": "Invited talk @ <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://hwutemple.github.io/AIME25WorkshopAIPHSS/\">Conference on AI in Medicine (AIME'25).</a>" },
+  { "date": "April 2025", "kind": "talk", "html": "Invited talk @ <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://research.gatech.edu/ipat/spring-2025-lunch-lectures\">IPaT: GVU Lunch Lecture Series.</a>" },
+  { "date": "Dec 2024", "kind": "paper", "html": "Our work \"Harm in Layers: Compositions of Misinformative Hate in Anti-Asian Speech and Impacts on Perceived Harmfulness\" is accepted to CSCW'25." },
+  { "date": "Nov 2024", "kind": "award", "html": "Honored to receive the <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://research.gatech.edu/ipat/foley-endowment\">Foley Scholar Award</a> (the highest award for PhD student research contributions to computing at Georgia Tech)!" },
+  { "date": "May 2024", "kind": "paper", "html": "Our work \"A Community-Centric Perspective for Characterizing and Detecting Anti-Asian Violence-Provoking Speech\" is accepted to ACL." },
+  { "date": "Apr 2023", "kind": "award", "html": "Our paper \"Synthetic Lies: Understanding AI-Generated Misinformation and Evaluating Algorithmic and Human Solutions\" received <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://programs.sigchi.org/chi/2023/program/content/95962\">Best Paper Honorable Mention</a> at CHI!" },
+  { "date": "Mar 2023", "kind": "award", "html": "Received Georgia Tech GVU Travel Grant" }
+]
