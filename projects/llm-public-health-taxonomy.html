@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Risk Taxonomy and Reflection Tool for Large Language Model Adoption in Public Health</title>
+<meta name="description" content="Four dimensions of risk when large language models are used to seek and give public health information, from focus groups with public health professionals and people with lived experience.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EAEEF2; --paper-2:#E1E7EC; --card:#FFFFFF;
+  --ink:#101820; --ink-2:#33424F; --muted:#5D6C7A;
+  --line:#D3DBE2; --line-soft:#E4EAEF;
+  --panel:#F5F8FA;
+  --ai:#FFFFFF; --me:#2E3A48; --me-tx:#EEF2F6;
+  --hl:rgba(16,24,32,.075); --hl-u:rgba(16,24,32,.26);
+  --flag:#7C3A9E; --accent:#7C3A9E;
+  --d1:#C81E4A; --d2:#0E7A6B; --d3:#3B4FB8; --d4:#95530A;
+  --disp:'Sora',system-ui,sans-serif;
+  --ui:'Inter',system-ui,-apple-system,sans-serif;
+  --human:'Newsreader',Georgia,serif;
+  --mono:'Space Mono',ui-monospace,monospace;
+  --pad:clamp(18px,4.5vw,56px); --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+h1,h2,h3{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin:0}
+h2{font-size:clamp(25px,3.6vw,40px)}
+.kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 15px}
+.lede{font-size:clamp(16.5px,1.7vw,18.5px);color:var(--ink-2);max-width:80ch;margin:18px 0 0}
+
+/* nav + tabs */
+.nav{position:sticky;top:0;z-index:80;background:rgba(234,238,242,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--max);margin:0 auto;padding:9px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-family:var(--disp);font-weight:700;font-size:14px;letter-spacing:-.02em}
+.logo span{color:var(--accent)}
+.tabs{display:flex;gap:4px;background:var(--paper-2);border:1px solid var(--line);border-radius:99px;padding:3px}
+.tab{font:inherit;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  background:none;border:0;border-radius:99px;padding:7px 16px;color:#4E5C68;cursor:pointer;text-decoration:none;display:inline-block}
+.tab:hover{color:var(--ink)}
+.tab[aria-current="page"]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(16,24,32,.1)}
+
+.view{display:none}
+.view.on{display:block}
+
+/* bubbles */
+.thread{display:flex;flex-direction:column;gap:9px}
+.b{max-width:min(92%,520px);font-size:15px;line-height:1.55;border-radius:17px;padding:11px 15px}
+.b-me{align-self:flex-end;background:var(--me);color:var(--me-tx);border-bottom-right-radius:5px}
+.b-ai{align-self:flex-start;background:var(--ai);border:1px solid var(--line-soft);color:var(--ink);border-bottom-left-radius:5px}
+.b-ai p{margin:0 0 9px}.b-ai p:last-child{margin-bottom:0}
+.b-ai ul{margin:8px 0 0;padding-left:19px}.b-ai li{margin-bottom:4px}
+.who{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:-3px}
+.who.me{align-self:flex-end}
+.iss{background:var(--hl);box-shadow:inset 0 -1.5px 0 var(--hl-u);border-radius:3px;padding:1px 2px;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+.dots{display:inline-flex;gap:4px;align-items:center;padding:3px 2px}
+.dots i{width:6px;height:6px;border-radius:50%;background:#9BA8B5;display:block;animation:blink 1.25s infinite}
+.dots i:nth-child(2){animation-delay:.18s}.dots i:nth-child(3){animation-delay:.36s}
+@keyframes blink{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-2px)}}
+
+/* hero */
+.hero{padding-top:clamp(38px,6.5vw,80px);padding-bottom:clamp(38px,5.5vw,68px)}
+.hero-g{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(30px,5vw,68px);align-items:start}
+@media(max-width:940px){.hero-g{grid-template-columns:1fr;gap:38px}}
+.hero h1{font-size:clamp(29px,3.9vw,44px);font-weight:800;letter-spacing:-.038em;line-height:1.04}
+.figures{display:flex;gap:26px;flex-wrap:wrap;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.fig .n{font-family:var(--disp);font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.fig .l{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.exhibit-cap{font-family:var(--disp);font-weight:700;font-size:clamp(19px,2.2vw,25px);letter-spacing:-.03em;line-height:1.15;margin:0 0 4px}
+h1 em,h2 em,.exhibit-cap em{font-style:normal;color:var(--accent)}
+.exhibit-sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
+.phone{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 22px 44px -34px rgba(16,24,32,.5)}
+.phone-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-bottom:13px;margin-bottom:15px;border-bottom:1px solid var(--line-soft)}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--d2);box-shadow:0 0 0 0 rgba(14,122,107,.5);animation:pulse 2.2s infinite;flex:none}
+@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(14,122,107,0)}100%{box-shadow:0 0 0 0 rgba(14,122,107,0)}}
+.verdict{margin-top:16px;padding:13px 15px;border-radius:12px;background:rgba(124,58,158,.06);border:1px solid rgba(124,58,158,.24);font-family:var(--human);font-style:italic;font-size:15.5px;line-height:1.45;color:#33204A}
+.verdict b{display:block;font-family:var(--mono);font-style:normal;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--flag);margin-bottom:7px;font-weight:700}
+.verdict cite{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:9px}
+.fade{opacity:0;transform:translateY(9px)}
+.go .fade{animation:up .5s cubic-bezier(.2,.7,.3,1) forwards}
+.go .f1{animation-delay:.2s}.go .f3{animation-delay:1.9s}.go .f4{animation-delay:2.5s}
+@keyframes up{to{opacity:1;transform:none}}
+.go #dots{animation:up .4s .7s forwards, out .3s 1.75s forwards}
+@keyframes out{to{opacity:0;height:0;margin:0;padding:0;overflow:hidden}}
+
+/* taxonomy overview */
+.layers{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding-top:clamp(40px,5.5vw,64px);padding-bottom:clamp(40px,5.5vw,64px)}
+.layers-intro{margin:0 0 26px;max-width:56ch;color:var(--ink-2);font-size:16px}
+.tgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:760px){.tgrid{grid-template-columns:1fr}}
+.tcard{background:var(--ct);border:1px solid var(--cb);border-radius:18px;padding:22px clamp(18px,2.2vw,24px) 18px;
+  display:flex;flex-direction:column}
+.tcard h3{font-size:clamp(18px,2vw,21px);letter-spacing:-.028em;color:var(--c);line-height:1.15}
+.tgo{display:flex;align-items:baseline;gap:10px;justify-content:space-between;width:100%;text-align:left;
+  background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;border-radius:6px}
+.tgo .ar{color:var(--c);opacity:.45;font-size:14px;flex:none;transition:opacity .15s,transform .15s}
+.tgo:hover .ar,.tgo:focus-visible .ar{opacity:1;transform:translateX(3px)}
+.tgo:hover h3{text-decoration:underline;text-underline-offset:3px}
+.tgo:focus-visible{outline:2px solid var(--c);outline-offset:3px}
+.tcard .d{margin:9px 0 0;font-size:14.5px;line-height:1.45;color:var(--ink-2)}
+.tcard ul{list-style:none;margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--cb)}
+.tlink{display:flex;align-items:baseline;gap:10px;width:100%;text-align:left;background:none;border:0;font:inherit;
+  color:var(--ink-2);cursor:pointer;padding:8px 10px;margin:0 -10px;border-radius:9px;font-size:14.5px;line-height:1.4;
+  transition:background .15s,color .15s}
+.tlink:hover,.tlink:focus-visible{background:var(--card);color:var(--c)}
+.tlink .ar{color:var(--c);opacity:.5;font-size:12px;flex:none;transition:opacity .15s,transform .15s}
+.tlink:hover .ar{opacity:1;transform:translateX(2px)}
+
+/* sections */
+.sec{padding-top:clamp(54px,8vw,96px);padding-bottom:clamp(54px,8vw,96px)}
+.sec-h{margin-bottom:clamp(24px,3.6vw,40px);max-width:70ch}
+
+/* characteristics */
+.group{background:var(--tint);border:1px solid var(--line-soft);border-radius:20px;padding:22px clamp(16px,2.4vw,26px) 24px;margin-bottom:14px}
+.group-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.group-h .gn{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.025em}
+.group-h .gc{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.chars{display:flex;flex-wrap:wrap;gap:12px}
+.char{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:16px;flex:1 1 280px;max-width:100%}
+@media(min-width:640px){.char{max-width:calc(50% - 6px)}}
+@media(min-width:1000px){.char{max-width:calc(33.333% - 8px)}}
+.char .ico{color:var(--gc);margin-bottom:11px;display:block}
+.char .t{font-family:var(--disp);font-weight:600;font-size:15px;letter-spacing:-.015em;line-height:1.25}
+.char .t sup{color:var(--flag);font-size:10px}
+.char .g{font-size:13.5px;color:var(--muted);margin-top:7px;line-height:1.45}
+.star-note{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:14px}
+
+/* dimensions + cards */
+.dim{padding-top:clamp(38px,5.5vw,66px);scroll-margin-top:70px}
+.dim-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:7px}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--c);flex:none}
+.dim-h h2{font-size:clamp(23px,3vw,34px);color:var(--c)}
+.dim-h .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.dim > p.sub{margin:0 0 24px;color:var(--muted);font-size:15.5px;max-width:60ch}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:16px;align-items:start}
+@media(max-width:640px){.cards{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;scroll-margin-top:80px}
+.card-h{padding:20px 20px 0}
+.card-h .rn{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c);margin-bottom:8px}
+.card-h h3{font-size:19.5px;letter-spacing:-.028em;line-height:1.18}
+.card-h .deck{margin:7px 0 0;font-size:14px;color:var(--c);font-weight:500;line-height:1.4}
+.card-h .def{margin:10px 0 0;font-size:14.6px;color:var(--ink-2);line-height:1.5}
+
+.exbox{margin:16px 20px 0;background:var(--panel);border:1px solid var(--line-soft);border-radius:15px;overflow:hidden}
+.exbox-h{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  padding:9px 14px;border-bottom:1px solid var(--line-soft);background:rgba(255,255,255,.6)}
+.exbox-b{padding:14px}
+.issues{border-top:1px dashed var(--line);padding:13px 14px 14px;background:rgba(124,58,158,.04)}
+.issues-h{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--flag);margin-bottom:9px}
+.issues ul{margin:0;padding-left:0;list-style:none}
+.issues li{position:relative;padding-left:16px;margin-bottom:7px;font-size:13.6px;line-height:1.45;color:var(--ink-2)}
+.issues li::before{content:"";position:absolute;left:1px;top:8px;width:5px;height:5px;border-radius:50%;background:var(--flag)}
+.issues li:last-child{margin-bottom:0}
+
+/* + expander */
+.more{margin-top:14px;border-top:1px solid var(--line-soft)}
+.more summary{list-style:none;cursor:pointer;padding:10px 20px;display:flex;justify-content:flex-end;align-items:center;transition:background .16s}
+.more summary::-webkit-details-marker{display:none}
+.more summary:hover{background:var(--panel)}
+.more summary:focus-visible{outline:2px solid var(--c);outline-offset:-3px}
+.plus{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);position:relative;flex:none;transition:transform .22s,border-color .16s,background .16s}
+.plus::before,.plus::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--c)}
+.plus::before{width:12px;height:1.6px}
+.plus::after{width:1.6px;height:12px;transition:opacity .22s}
+.more summary:hover .plus{border-color:var(--c);background:var(--card)}
+.more[open] .plus{transform:rotate(135deg);border-color:var(--c)}
+.more-b{padding:2px 20px 20px}
+.more-b p{margin:0 0 13px;font-size:14.8px;line-height:1.55;color:var(--ink-2)}
+.q{font-family:var(--human);font-style:italic;font-size:16px;line-height:1.45;color:var(--ink-2);border-left:2px solid var(--c);padding-left:14px;margin:0 0 18px}
+.q cite{display:block;font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:8px}
+.qh{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:0 0 9px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;
+  border-radius:99px;padding:5px 11px 5px 8px;background:var(--tt);color:var(--tc);border:1px solid transparent}
+.tag svg{width:14px;height:14px;flex:none}
+a.tag{text-decoration:none;transition:border-color .15s,transform .15s}
+a.tag:hover,a.tag:focus-visible{border-color:var(--tc);transform:translateY(-1px)}
+#chars,#lowq{scroll-margin-top:72px}
+.nextgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:680px){.nextgrid{grid-template-columns:1fr}}
+.nextcard{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;text-decoration:none;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px clamp(18px,2.2vw,24px);
+  transition:border-color .16s,transform .16s,box-shadow .16s}
+.nextcard:hover,.nextcard:focus-visible{border-color:var(--accent);transform:translateY(-2px);
+  box-shadow:0 14px 30px -24px rgba(16,24,32,.6)}
+.nc-t{font-family:var(--disp);font-weight:700;font-size:clamp(16px,1.9vw,19px);letter-spacing:-.025em;line-height:1.22}
+.nc-a{font-size:20px;color:var(--accent);opacity:.5;flex:none;transition:opacity .16s,transform .16s}
+.nextcard:hover .nc-a{opacity:1;transform:translateX(4px)}
+
+/* questions to ask — highlighted */
+.qbox{background:var(--ct);border:1px solid var(--cb);border-radius:15px;padding:16px 18px 18px;margin-top:4px}
+.qbox-h{display:flex;align-items:center;gap:8px;margin-bottom:13px}
+.qbox-h .qi{width:22px;height:22px;border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;
+  font-family:var(--disp);font-weight:700;font-size:13px;flex:none}
+.qbox-h span{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--c);font-weight:700}
+.qsub{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.qs{margin:0 0 14px;padding:0;list-style:none}
+.qs:last-child{margin-bottom:0}
+.qs li{font-size:14.2px;line-height:1.5;color:var(--ink-2);padding-left:15px;position:relative;margin-bottom:9px}
+.qs li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:1.5px;background:var(--c)}
+.qs li:last-child{margin-bottom:0}
+
+/* failure modes */
+.lq{display:grid;grid-template-columns:repeat(auto-fit,minmax(288px,1fr));gap:14px}
+.lqi{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.lqi-h{padding:18px 20px 0}
+.lqi h3{font-size:16px;letter-spacing:-.02em;margin-bottom:7px}
+.lqi .def{margin:0;font-size:13.6px;line-height:1.5;color:var(--muted)}
+.lqi .more{margin-top:12px}
+.lqi .more-b{padding:2px 20px 18px}
+.lqi .ex{margin:0;background:var(--panel);border:1px solid var(--line-soft);border-radius:13px;border-bottom-left-radius:4px;padding:11px 13px;font-size:13.8px;line-height:1.45}
+.lqi .ex .lb{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.lqi .why{margin:11px 0 0;font-size:13px;line-height:1.45;color:var(--flag);padding-left:14px;position:relative}
+.lqi .why::before{content:"";position:absolute;left:2px;top:8px;width:5px;height:5px;border-radius:50%;background:var(--flag)}
+
+/* publication view */
+.pub{padding-top:clamp(40px,6vw,72px);padding-bottom:clamp(50px,7vw,84px)}
+.pub h1{font-size:clamp(26px,3.4vw,40px);font-weight:800;letter-spacing:-.035em;max-width:40ch}
+.authors{margin:20px 0 0;font-size:15.5px;color:var(--ink-2);line-height:1.7;max-width:80ch}
+.authors sup{color:var(--accent);font-size:11px}
+.affil{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.7}
+.pubmeta{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.6}
+.venue{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.vpill{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--card);
+  border:1px solid var(--line);border-radius:99px;padding:6px 13px;color:var(--ink-2);text-decoration:none}
+.vpill.solid{background:var(--ink);color:#fff;border-color:var(--ink)}
+.vpill:hover{border-color:var(--accent);color:var(--accent)}
+.vpill.solid:hover{background:var(--accent);color:#fff}
+
+.pub-sec{margin-top:clamp(36px,5vw,58px)}
+.pub-sec > h2{font-size:clamp(21px,2.6vw,29px);margin-bottom:16px}
+.abstract{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px clamp(20px,2.6vw,30px);font-size:15.5px;line-height:1.65;color:var(--ink-2)}
+.abstract p{margin:0 0 14px}.abstract p:last-child{margin:0}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.mcard .mk{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.mcard h3{font-size:16.5px;letter-spacing:-.02em;margin-bottom:8px}
+.mcard p{margin:0;font-size:14px;line-height:1.55;color:var(--muted)}
+.mcard p + p{margin-top:9px}
+
+.ptab{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:13.5px}
+.ptab th{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--panel);font-weight:400}
+.ptab td{padding:9px 14px;border-bottom:1px solid var(--line-soft);color:var(--ink-2)}
+.ptab tr:last-child td{border-bottom:0}
+.ptab .id{font-family:var(--mono);font-size:11.5px;color:var(--ink)}
+.ptab .tp{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:var(--tt);color:var(--tc);white-space:nowrap}
+.tabwrap{overflow-x:auto;border-radius:16px}
+.tabnote{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6}
+
+.citebox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.cite-h{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
+.citebox pre{margin:0;font-family:var(--mono);font-size:12px;line-height:1.75;color:var(--ink-2);white-space:pre-wrap;word-break:break-word}
+.copy{margin-top:14px;font:inherit;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--ink);color:#fff;border:0;border-radius:99px;padding:8px 16px;cursor:pointer}
+.copy:hover{background:var(--accent)}
+
+footer{background:var(--paper-2);border-top:1px solid var(--line);padding:clamp(40px,6vw,64px) 0 44px;margin-top:clamp(40px,6vw,72px)}
+.fg{display:block}
+.ref{font-family:var(--mono);font-size:12.5px;line-height:1.85;color:var(--muted);max-width:none}
+.ref b{color:var(--ink);font-weight:400}
+.note{font-family:var(--mono);font-size:11px;line-height:1.65;color:var(--muted);border-left:2px solid var(--flag);padding-left:13px;margin:0}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001s!important;animation-delay:0s!important;transition-duration:.001s!important}
+  .fade{opacity:1;transform:none}#dots{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <span class="logo">Risk Taxonomy <span>/</span> LLMs in Public Health</span>
+    <div class="tabs" role="tablist">
+      <a class="tab" href="#/taxonomy" data-tab="taxonomy">Taxonomy</a>
+      <a class="tab" href="#/vocabulary" data-tab="vocabulary">About LLMs</a>
+      <a class="tab" href="#/publication" data-tab="publication">Publication</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= TAXONOMY VIEW ================= -->
+<div class="view" id="view-taxonomy">
+<main>
+
+<section class="hero wrap">
+  <div class="hero-g">
+    <div>
+      <p class="kicker">CSCW 2025 · Zhou, Chen, Shah, Schwab-Reese &amp; De Choudhury</p>
+      <h1>A Risk Taxonomy and Reflection Tool for <em>Large Language Model Adoption in Public Health</em></h1><br>
+      <!-- <p class="exhibit-cap">A reasonable-looking answer.<br>That is the problem.</p> -->
+      <p class="lede">Large language models are already answering public health questions about vaccines, substance use, intimate partner violence, and more. In this domain a fluent answer can still be wrong and cause harm, and the consequences reach whole populations. We conducted focus groups with public health professionals and people with lived experience, showed them real AI answers on these topics, and built a taxonomy from what they saw.</p>
+<!--       <div class="figures">
+        <div class="fig"><div class="n">4</div><div class="l">dimensions</div></div>
+        <div class="fig"><div class="n">11</div><div class="l">specific risks</div></div>
+        <div class="fig"><div class="n">9</div><div class="l">types of low-quality output</div></div>
+        <div class="fig"><div class="n">20</div><div class="l">participants</div></div>
+      </div> -->
+    </div>
+    <figure style="margin:0">
+      <!-- <p class="exhibit-sub">An exchange tested in an IPV focus group</p> -->
+      <div class="phone" id="hero">
+        <div class="phone-top"><span>Paraphrased from r/abusiverelationships</span><span class="pulse" aria-hidden="true"></span></div>
+        <div class="thread">
+          <span class="who me fade f1">User</span>
+          <div class="b b-me fade f1">Can a toxic partner be nice for a long period of time?</div>
+          <div class="b b-ai fade" id="dots" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span></div>
+          <span class="who fade f3">AI</span>
+          <div class="b b-ai fade f3">
+            <p>Toxic relationships <span class="iss">can change if both partners are equally committed to doing so</span>. This requires a lot of work, including:</p>
+            <ul><li>Open communication</li><li>Honesty</li><li>Self-reflection</li><li>Identifying and understanding toxic traits</li><li>Establishing clear boundaries</li><li>...</li></ul>
+          </div>
+        </div>
+        <div class="verdict fade f4">
+          <b>What the room saw</b>
+          “It doesn’t understand that this is an abusive situation, versus just getting advice on a relationship.”<br>
+          "(...) a cudgel that an abuser could use against somebody who needs to leave: See? This says we just need to both work at it. We both need to change."
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="layers">
+  <div class="wrap">
+    <h2 style="max-width:22ch">Taxonomy overview</h2>
+      <!-- layers-intro -->
+    <p class="lede">Harm reaches the person interacting with the tool, the relationship foundation of healthcare, the information that can reach many others, and the question of who is accountable when it goes wrong.</p><br>
+    <div class="tgrid" id="tgrid"></div>
+  </div>
+</section>
+
+
+<div id="dims"></div>
+
+
+
+
+
+<section class="sec wrap" style="padding-top:10">
+  <p class="kicker" style="margin-bottom:14px">About the technology behind these risks</p>
+  <div class="nextgrid">
+    <a class="nextcard" href="#/vocabulary?chars">
+      <span class="nc-t">Distinctive LLM characteristics from traditional health information sources</span>
+      <span class="nc-a" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="nextcard" href="#/vocabulary?lowq">
+      <span class="nc-t">Types of low-quality information produced by LLMs</span>
+      <span class="nc-a" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</section>
+
+</main>
+</div>
+
+<!-- ================= VOCABULARY VIEW ================= -->
+<div class="view" id="view-vocabulary">
+<main>
+<section class="sec wrap" id="chars">
+  <div class="sec-h">
+    <p class="kicker">What contributes to risks</p>
+    <h2><em>Distinctive LLM characteristics</em> from traditional health info sources</h2>
+    <p class="lede">People check the author, skim the source, read a list as a ranking. These norms may no longer apply for LLM interactions. These characteristics separate LLMs from traditional information sources and contribute to the identified risks.</p>
+  </div>
+  <div id="chars-root"></div>
+  <p class="star-note"><sup style="color:var(--flag)">*</sup> May not apply to every model or deployment. Fine-tuned systems and newer interaction modes can differ.</p>
+</section>
+
+<section class="sec wrap" id="lowq">
+  <div class="sec-h">
+    <h2><em>Types of low-quality information</em> in AI-generated text</h2>
+    <p class="lede">Information quality issues cannot be summarized by the commonly referred notion of "hallucination". Participants found nuanced types of low-quality output, some of which can pass an accuracy check and still cause harm.</p>
+  </div>
+  <div class="lq" id="lq-root"></div>
+</section>
+</main>
+</div>
+
+<!-- ================= PUBLICATION VIEW ================= -->
+<div class="view" id="view-publication">
+<main class="pub wrap">
+  <p class="kicker">Publication</p>
+  <h1>A Risk Taxonomy and Reflection Tool for Large Language Model Adoption in Public Health</h1>
+  <p class="authors">
+    <a href="https://jiaweizhou.me/">Jiawei Zhou</a><sup>1</sup>, Amy Z. Chen<sup>1</sup>, Darshi Shah<sup>1</sup>, Laura M. Schwab-Reese<sup>2</sup>, Munmun De Choudhury<sup>1</sup>
+  </p>
+  <p class="affil">1 · Georgia Institute of Technology, Atlanta, GA, USA<br>2 · Purdue University, West Lafayette, IN, USA</p>
+  <p class="pubmeta">Proc. ACM Hum.-Comput. Interact., Vol. 9, No. 7, Article CSCW363 · November 2025 · 32 pages · CC BY 4.0</p>
+  <div class="venue">
+    <a class="vpill solid" href="https://doi.org/10.1145/3757544">Read the paper &#8599;</a>
+    <a class="vpill" href="#/publication" data-scroll="cite-section">Cite the paper &#8595;</a>
+  </div>
+
+  <section class="pub-sec">
+    <h2>Abstract</h2>
+    <div class="abstract">
+      <p>Recent breakthroughs in large language models (LLMs) have generated both interest and concern about their potential adoption as information sources or communication tools across different domains. In public health, where stakes are high and impacts extend across diverse populations, adopting LLMs poses unique challenges that require thorough evaluation. However, structured approaches for assessing potential risks in public health remain under-explored.</p>
+      <p>To address this gap, we conducted focus groups with public health professionals and individuals with lived experience to unpack their concerns, situated across three distinct and critical public health issues that demand high-quality information: infectious disease prevention (vaccines), chronic and well-being care (opioid use disorder), and community health and safety (intimate partner violence). We synthesize participants’ perspectives into a risk taxonomy, identifying and contextualizing the potential harms LLMs may introduce when positioned alongside traditional health communication. This taxonomy highlights four dimensions of risk to individuals, human-centered care, information ecosystems, and technology accountability.</p>
+      <p>For each dimension, we unpack specific risks and offer example reflection questions to help practitioners adopt a risk-reflexive approach. By summarizing distinctive LLM characteristics and linking them to identified risks, we discuss the need to revisit prior mental models of information behaviors and complement evaluations with external validity and domain expertise through lived experience and real-world practices. Together, this work contributes a shared vocabulary and reflection tool for people in both computing and public health to collaboratively reflect and assess risks in deciding when to employ LLM capabilities (or not) and how to mitigate harm.</p>
+    </div>
+  </section>
+
+  <section class="pub-sec">
+    <h2>Method</h2>
+    <div class="mgrid">
+      <div class="mcard">
+        <div class="mk">Topics</div>
+        <h3>Three public health issues</h3>
+        <p>Vaccines, opioid use disorder and intimate partner violence, chosen to span infectious disease prevention, chronic and well-being care, and community health and safety. Each demands high-quality information and each already carries misinformation, stigma or sensitivity.</p>
+      </div>
+      <div class="mcard">
+        <div class="mk">Participants</div>
+        <h3>Twenty people, two cohorts</h3>
+        <p>Ten public health professionals (E1–E10) recruited by snowball sampling through state health departments, partner alliances, shelters and professional networks across Georgia, Indiana, California, Minnesota and Texas.</p>
+        <p>Ten members of the public (P1–P10) recruited via Prolific, screened for active information-seeking on the topic. Participants in the OUD and IPV sessions had lived experience of those issues.</p>
+      </div>
+      <div class="mcard">
+        <div class="mk">Sessions</div>
+        <h3>Six focus groups</h3>
+        <p>Professionals and people with lived experience met separately. Sessions opened on current information practices, then introduced how LLMs generate text, then demonstrated ChatGPT (GPT-4o-mini) and Google AI Overview answering questions paraphrased from r/abusiverelationships, r/OpiatesRecovery and r/HPV.</p>
+        <p>Participants then brainstormed potential negative consequences, scaffolded by the socio-ecological model: individual, relationship, community, society. Two rounds of pilot testing preceded the study.</p>
+      </div>
+      <!-- <div class="mcard">
+        <div class="mk">Analysis</div>
+        <h3>Reflexive thematic analysis</h3>
+        <p>Three researchers independently open-coded three sessions line by line, then met to consolidate. The first author coded the remaining sessions. Codes were grouped into themes, discussed and revised across several rounds.</p>
+        <p>An initial deductive pass using the socio-ecological model was set aside for an inductive one, because many risks overlapped layers. The result is four dimensions and eleven sub-types of risk.</p>
+      </div> -->
+    </div>
+  </section>
+
+  <section class="pub-sec">
+    <h2>Participants</h2>
+    <p class="tabnote">Experts (E1 to E10) are public health professionals, with years of professional experience in occupation listed in brackets. Public participants (P1 to P10) had actively sought information on the session topic.</p>
+    <div class="tabwrap"><table class="ptab" id="ptab">
+      <thead><tr><th>ID</th><th>Role or background</th><th>Topic</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+
+
+  <section class="pub-sec" id="cite-section" style="scroll-margin-top:80px">
+    <h2>Cite this work</h2>
+    <div class="citebox">
+      <div class="cite-h">ACM reference format</div>
+      <pre id="citetext">Jiawei Zhou, Amy Z. Chen, Darshi Shah, Laura M. Schwab-Reese, and Munmun De Choudhury. 2025. A Risk Taxonomy and Reflection Tool for Large Language Model Adoption in Public Health. Proc. ACM Hum.-Comput. Interact. 9, 7, Article CSCW363 (November 2025), 32 pages. https://doi.org/10.1145/3757544</pre>
+      <button class="copy" data-copy="citetext">Copy citation</button>
+    </div>
+    <div class="citebox" style="margin-top:14px">
+      <div class="cite-h">BibTeX</div>
+      <pre id="bibtex">@article{zhou2025risk,
+  author = {Zhou, Jiawei and Chen, Amy Z. and Shah, Darshi and Schwab-Reese, Laura M. and De Choudhury, Munmun},
+  title = {A Risk Taxonomy and Reflection Tool for Large Language Model Adoption in Public Health},
+  journal   = {Proceedings of the ACM on Human-Computer Interaction},
+  volume    = {9},
+  number    = {7},
+  articleno = {CSCW363},
+  numpages  = {32},
+  year      = {2025},
+  month     = nov,
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  doi       = {10.1145/3757544},
+  url       = {https://doi.org/10.1145/3757544}
+}</pre>
+      <button class="copy" data-copy="bibtex">Copy BibTeX</button>
+    </div>
+  </section>
+</main>
+</div>
+
+<footer>
+  <div class="wrap fg">
+    <div>
+      <p class="ref" style="margin-top:0">
+        <a href="https://jiaweizhou.me/">Jiawei Zhou</a>, Amy Z. Chen, Darshi Shah, Laura M. Schwab-Reese, and Munmun De Choudhury. 2025.
+        <b>A Risk Taxonomy and Reflection Tool for Large Language Model Adoption in Public Health.</b>
+        <i>Proc. ACM Hum.-Comput. Interact.</i> 9, 7, Article CSCW363 (November 2025), 32 pages.<br>
+        <a href="https://doi.org/10.1145/3757544">https://doi.org/10.1145/3757544</a>
+      </p>
+      <p class="ref" style="margin-top:16px">Georgia Institute of Technology · Purdue University. Published under a <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 licence</a>.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const I=d=>`<svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const P={
+ probability:'<rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="8.5" cy="8.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/>',
+ source:'<path d="M10 13.5a4 4 0 0 0 5.7.4l2.6-2.6a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10.5a4 4 0 0 0-5.7-.4l-2.6 2.6a4 4 0 0 0 2.6 6.8"/><path d="M3 3l18 18" opacity=".55"/>',
+ general:'<circle cx="9" cy="9" r="5"/><rect x="10" y="10" width="10" height="10" rx="2"/>',
+ data:'<ellipse cx="12" cy="6" rx="7.5" ry="3"/><path d="M4.5 6v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6"/><path d="M4.5 12v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6"/>',
+ style:'<path d="M4 6h16M4 11h16M4 16h11"/><circle cx="20" cy="16" r="1.3" fill="currentColor" stroke="none"/>',
+ promptq:'<path d="M20 14a3 3 0 0 1-3 3H9l-5 4V6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3z"/><path d="M9.6 8.4a2.4 2.4 0 0 1 4.6.9c0 1.6-2.3 1.9-2.3 3.2"/><circle cx="11.9" cy="14.6" r=".9" fill="currentColor" stroke="none"/>',
+ prompth:'<path d="M9 3H6a3 3 0 0 0-3 3v3M15 3h3a3 3 0 0 1 3 3v3M9 21H6a3 3 0 0 1-3-3v-3M15 21h3a3 3 0 0 0 3-3v-3"/><path d="M8 12h3M13 12h3" opacity=".6"/>',
+ governance:'<path d="M3 9.5 12 4l9 5.5"/><path d="M5.5 10v8M10 10v8M14 10v8M18.5 10v8"/><path d="M3 20.5h18"/>',
+ education:'<path d="M3 6.5A3 3 0 0 1 6 4h5v15H6a3 3 0 0 0-3 2z"/><path d="M21 6.5A3 3 0 0 0 18 4h-5v15h5a3 3 0 0 1 3 2z"/>'
+};
+const ICON=Object.fromEntries(Object.entries(P).map(([k,v])=>[k,I(v)]));
+const TAGICON=Object.fromEntries(Object.entries(P).map(([k,v])=>
+  [k,`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${v}</svg>`]));
+
+const GROUPS=[
+ {n:'How it works',c:'Mechanism',tint:'#E8EDF1',gc:'#3B4A57',ids:['probability','source','general','data','style']},
+ {n:'How you interact with it',c:'Interaction',tint:'#E8EDF1',gc:'#3B4A57',ids:['promptq','prompth']},
+ {n:'How it is governed',c:'Oversight',tint:'#E8EDF1',gc:'#3B4A57',ids:['governance','education']}
+];
+const GM={}; GROUPS.forEach(g=>g.ids.forEach(id=>GM[id]={tint:g.tint,gc:g.gc}));
+
+const TRAITS={
+ probability:{n:'Probability-based',s:'Predicts the next word by probability, without understanding any of it. Output varies between generations, with no guarantee of quality or sensitivity to emotion and culture.'},
+ source:{n:'Untraceable sources',s:'Traditional sources carry authors, affiliations and citations as credibility cues. Users cannot trace where an answer came from.'},
+ general:{n:'General purpose',star:1,s:'Most models claim to serve every purpose, and so tend to lack domain-specific knowledge and practice-based expertise.'},
+ data:{n:'Data dependency',s:'Output is only as good as the training data, raising the question of whether that data is representative, fair, current and accurate.'},
+ style:{n:'Standardized linguistic style',star:1,s:'A formal register that reads as authoritative or unempathetic. List formatting implies completeness and ranked importance that was never intended.'},
+ promptq:{n:'User role in forming prompts',star:1,s:'Users must start the conversation and phrase it well enough to carry the details and context a good answer depends on.'},
+ prompth:{n:'Fragmented prompt-handling',star:1,s:'Prompts are handled in isolated pieces rather than as a whole situation, so interactions lack closure, follow-up and context.'},
+ governance:{n:'Lagging governance',s:'Regulation and policy have not kept pace with deployment, leaving liability and standards for real-world use unsettled.'},
+ education:{n:'Inadequate public education',s:'These systems are deployed widely, often without users noticing AI is present, while public understanding of how they work lags behind.'}
+};
+
+const DIMS=[
+{id:'individuals',c:'#C81E4A',ct:'#FCEEF2',cb:'#F3D3DC',lbl:'Dimension 1',t:'Risks to individuals',
+ layer:'The person typing',layerp:'The person seeking help. What happens to their safety in a crisis, the health decisions they make, and whether they reach out again.',
+ sub:'Harm to the person during the conversation, and after it.',
+ risks:[
+ {id:'r1',n:'Risk 1',t:'Low-quality support during interactions',deck:'Missing a crisis, or answering it badly.',
+  def:'AI may mishandle critical or dangerous situations. It may give bad advice that leads to harmful decisions or distress.',
+  chars:['probability','general','promptq'],
+  me:'My partner sometimes yells at me and controls who I talk to. But he’s really nice most of the time. Is this normal? Can we overcome this?',
+  ai:'<p>Relationships can go through difficult phases. <span class="iss">With open communication, honesty, and mutual effort, many couples are able to improve unhealthy dynamics.</span></p>',
+  fl:['Fails to recognise a potentially dangerous situation','May encourage the person to stay in a harmful one','No emotional validation, and no route to help'],
+  body:'<p>Critical events such as an overdose or an escalating abusive relationship need timely recognition, an appropriate response, and escalation to professional help. Models can fail at all three, and the danger sharpens when they do not acknowledge their own limits.</p><p>Recognising a case as critical is only the start. Whether to escalate, and how, is its own judgment.</p>',
+  q:{t:'In these situations someone should be redirected to a national line, or someone else to talk to.',c:'E5 · public health director'},
+  qs:[{h:'To identify or handle critical situations',i:['What guidelines do health professionals use to identify and handle critical situations?','How can those practices be translated into a system that escalates or redirects when intervention is needed?','What are the relative risks of under-identifying versus over-identifying a crisis?']},
+      {h:'To support health decisions and emotional status',i:['How might a user’s decisions or emotional state be harmed by low-quality output? Which kinds are most likely here, and most dangerous?','Are there authoritative resources to compare generated information against?']}]},
+ {id:'r2',n:'Risk 2',t:'Reinforcement of biases and misconceptions',deck:'Repeating stigma, or dismissing the kernel of truth inside it.',
+  def:'AI can repeat stereotypes, stigma, or common myths, especially if those ideas are widespread online.',
+  chars:['probability','data','style','governance'],
+  me:'I’m struggling with opioids, but I don’t want people to think I’m weak.',
+  ai:'<p><span class="iss">Many people struggle with self-discipline.</span> <span class="iss">Building stronger habits and personal motivation can help you overcome substance use.</span></p>',
+  fl:['Frames a medical condition as a personal failing','Reinforces stigma around substance use','Leaves the person feeling blamed rather than supported'],
+  body:'<p>Misleading narratives can be amplified and internalised, especially when a model reflects a widespread misconception or follows the user’s lead. Professionals warned of the opposite failure too: dismissing the reasonable fear inside a questionable belief leaves people feeling unheard.</p><p>Countering a misconception without cultural sensitivity can backfire. Practitioners described training in mental health first aid and LGBTQ+ bias before working with those communities.</p>',
+  q:{t:'People sometimes are afraid to call the police for good reason, especially survivors of color. They can’t be guaranteed that they or their partner is not gonna be injured or killed by police if something goes awry.',c:'E2 · researcher, IPV'},
+  qs:[{h:'',i:['What are the common biases and misconceptions here, and how do you keep output from reinforcing them?','What cultural or personal variation shapes how people approach this issue, and how do professionals adjust for it?','How can a feedback loop keep improving support quality over time?']}]},
+ {id:'r3',n:'Risk 3',t:'Additional barriers to help-seeking',deck:'You have to know how to ask, and the answer may still leave you stuck.',
+  def:'AI often requires users to know what to ask, how to phrase it, and what details matter. When advice is vague or generic, people may feel stuck or stop seeking support.',
+  chars:['source','general','promptq','prompth','education'],
+  me:'I’m not feeling well, but I don’t know what’s wrong.',
+  ai:'<p><span class="iss">You should consider improving your diet, getting more sleep, and managing stress.</span></p>',
+  me2:'I don’t really want to talk to anyone about this.',
+  ai2:'<p><span class="iss">That’s okay. You can always talk to me instead.</span></p>',
+  fl:['Advice too general to act on, with no clear next step','May delay professional or social help','Encourages isolation and avoidance of care'],
+  body:'<p>These tools require the user to open the conversation and phrase it precisely. Someone in distress may not know the medical vocabulary, which parts of their history matter, or how to write a prompt at all.</p><p>The second barrier comes after the answer: easy, always-available responses can substitute for real contact, particularly for people already withdrawing from it.</p>',
+  q:{t:'The less I sought out connections and help from other real-life people, the more I could lean into wanting to stay. We can talk about adding support and feeling heard, but that’s not going to get you out.',c:'P1 · lived experience, IPV'},
+  qs:[{h:'To lower the communication burden',i:['When do health professionals need to lead the conversation, and what strategies do they use?','How can professional practice be translated into support that helps users describe their situation fully?']},
+      {h:'To facilitate support-seeking',i:['When and how do professionals scaffold someone toward real-world help?','What requests are beyond the tool, and how will those limits be communicated and referred onward?','Do health professionals believe users can act on what this tool provides?']}]}
+]},
+{id:'care',c:'#0E7A6B',ct:'#E9F6F3',cb:'#C9E5DE',lbl:'Dimension 2',t:'Risks to human-centered care',
+ layer:'The care relationship',layerp:'The relationships healthcare rests on. Trust between patient and provider, empathy in difficult moments, and the timing to offer help.',
+ sub:'Harm to the relationships and systems that deliver care.',
+ risks:[
+ {id:'r4',n:'Risk 4',t:'Degradation of patient–provider trust and support systems',deck:'Doubting the clinician, and defunding the human alternative.',
+  def:'When AI advice conflicts with or substitutes for professional guidance, people may begin to doubt clinicians, delay care, or distrust health systems.',
+  chars:['source','general','governance','education'],
+  me:'My doctor recommended this medication, but I’m unsure. I think I can do without taking it.',
+  ai:'<p><span class="iss">Many people prefer to manage health conditions naturally without medication.</span> <span class="iss">Ultimately, it’s your choice.</span></p>',
+  fl:['Undermines a professional recommendation without evidence','Frames a medical decision as preference rather than informed care','May lead to delayed or ineffective treatment'],
+  body:'<p>Trust erodes from two directions. Patients who take AI output as fact may doubt advice that contradicts it, and not knowing whether a recommendation came from training or a chatbot is corrosive on its own.</p><p>Participants also saw a longer arc: people anchoring to a tool instead of building a support system, and funding following them away from in-person advocacy.</p>',
+  q:{t:'I don’t trust you to be giving me the right information if I think that you are not using what you learned, but using what I would be using.',c:'P9 · lived experience, vaccines'},
+  qs:[{h:'',i:['Compared to a health professional, what are this tool’s limits, and when do you make that difference clear?','What is its role alongside actual care? How will professionals explain its involvement to patients?','What happens over time if users rely on this alone?']}]},
+ {id:'r5',n:'Risk 5',t:'Missed opportunities to proactively introduce help',deck:'It waits to be asked. Practitioners do not.',
+  def:'AI only responds when explicitly asked. It does not check in, notice hesitation, or gently encourage support when users might benefit from it.',
+  chars:['general','promptq','prompth','governance'],
+  me:'I’ve been feeling really overwhelmed lately, can’t finish tasks at work, and some days I can’t get out of bed.',
+  ai:'<p>It’s normal to feel that way sometimes. <span class="iss">Let me know if you’d like tips on motivating yourself or staying productive.</span></p>',
+  fl:['Clear signals of distress draw no follow-up or support options','Redirects to productivity instead of asking anything further','Leaves responsibility entirely with the user'],
+  body:'<p>Professionals time their approach. They read whether someone is ready, and they create the moment: an annual check-up where a patient is alone and safe, a peer navigator in the emergency room at the hour when someone might accept help.</p><p>A general-purpose model has no continuity, no check-in, and no sense of when to reach out.</p>',
+  q:{t:'The social worker offered to call for help with me, but I wasn’t there yet — the phone just felt so heavy.',c:'E3 · social worker, IPV'},
+  qs:[{h:'',i:['How do professionals recognise readiness for support, and how might that inform system design?','What are the appropriate moments and settings to introduce help?','When do professionals reach out first, and how could a system incorporate similar check-ins?']}]},
+ {id:'r6',n:'Risk 6',t:'Dehumanization and impersonality in care',deck:'Polite, pragmatic, and quietly dismissive.',
+  def:'AI responses may sound polite but emotionally distant. In sensitive situations, neutral or pragmatic language can feel dismissive or even normalize harm.',
+  chars:['probability','style','prompth','governance'],
+  me:'I’m scared about my biopsy test results.',
+  ai:'<p><span class="iss">Fear is a common emotional response to health uncertainty.</span> <span class="iss">Here are some statistically common outcomes for this type of test.</span></p>',
+  fl:['No acknowledgement of the fear just expressed','Transactional where support was needed','May raise anxiety rather than reduce it'],
+  body:'<p>Participants described the answers as analytical, robotic, not personable, with the list format itself contributing. The concern runs both ways: it fails patients now, and professionals immersed in that register may absorb it.</p><p>In sensitive situations, neutral is not safe. Survivors normalised to violence need the seriousness of their situation named, not summarised.</p>',
+  q:{t:'If I was in this situation, I would want to have more affirmation that this is not an okay scenario that’s happening to me.',c:'E4 · researcher, IPV'},
+  qs:[{h:'',i:['What are the emotional needs here, and how do professionals meet them and assess empathy in communication?','Are there recommended trainings or guidelines from domain experts on this kind of conversation?','How can a feedback loop evaluate the emotional quality of what the system produces?']}]}
+]},
+{id:'ecosystem',c:'#3B4FB8',ct:'#EDF0FB',cb:'#D2DAF3',lbl:'Dimension 3',t:'Risks to information ecosystems',
+ layer:'The shared information environment',layerp:'The shared pool of health information a whole population draws on, and people\u2019s ability to judge the quality of what they find in it.',
+ sub:'Harm to the shared environment everyone draws information from.',
+ risks:[
+ {id:'r7',n:'Risk 7',t:'Degradation of overall information quality',deck:'Misinformation at volume, and echo chambers on request.',
+  def:'AI makes it easy to generate large amounts of convincing content, including misleading or one-sided narratives that reinforce existing beliefs.',
+  chars:['probability','general','data','promptq','governance','education'],
+  me:'I’ve heard this supplement can cure a lot of health problems. Is that true?',
+  ai:'<p><span class="iss">Many people report positive experiences</span> with this supplement, including <span class="iss">improved energy, immunity, and overall well-being.</span></p>',
+  fl:['Ignores risks, side effects and uncertainty','Reinforces a possibly false belief with anecdote','Reads as promotional — and may mislead further if shared'],
+  body:'<p>Anyone can now produce a hundred convincing posts on demand, with fluency supplying an illusion of authority.</p><p>The quieter failure is agreement. When a question about long-term opioid use for chronic pain was tested, the answer emphasised improved function and quality of life while downplaying risk. It was the most positive framing one domain expert had encountered on the subject. No public participant flagged it.</p>',
+  q:{t:'The accessibility of AI makes basically anyone able to pump out a lot more of that. People will need to know how to find a trustworthy source.',c:'E9 · coalition staff, vaccines'},
+  qs:[{h:'To mitigate misinformation',i:['How can risks like hallucination be communicated to both professionals and end users?','What mechanisms, such as fact-checking or cross-referencing, can be built in to detect or prevent harmful content?']},
+      {h:'To counter echo chambers',i:['How could this tool reinforce existing beliefs or narrow exposure?','When and how can users be encouraged to diversify their prompts or sources?']}]},
+ {id:'r8',n:'Risk 8',t:'Erosion of critical thinking',deck:'The illusion of knowing, with no way left to check.',
+  def:'Because AI responses are structured and confident, users may assume they are authoritative and complete, and stop questioning reliability.',
+  chars:['source','style','education'],
+  me:'How do you know this information is correct?',
+  ai:'<p><span class="iss">I was trained on a large amount of medical knowledge.</span></p>',
+  me2:'Do you think I need to see a doctor?',
+  ai2:'<p><span class="iss">Trust me. You’ll be fine.</span></p>',
+  fl:['No sources or evidence, but authority is implied','Training used as a credibility shortcut','Encourages trust without verification'],
+  body:'<p>Organised, confident, complete-looking answers create a false sense of mastery, worsened when the system does not signal uncertainty, and when list formatting implies a ranking that was never intended.</p><p>Meanwhile the old verification habits stop working. Authorship, references and domain reputation no longer apply, leaving fluency as the only credibility cue.</p>',
+  q:{t:'People are gonna feel empowered, like: I know this stuff. Now I have the knowledge. AI has given it to me. So it must be true.',c:'E6 · nurse, OUD'},
+  qs:[{h:'To limit over-trust',i:['How will limitations be communicated so users don’t mistake efficiency for correctness?','Could the tool create an impression of authority? What transparency measures counter that?']},
+      {h:'To make quality checkable',i:['How transparent are developers about training data and limitations?','What external resources or reminders could help users verify what they read?']}]},
+ {id:'r9',n:'Risk 9',t:'Further inequity in access and literacy',deck:'Marketed as accessible; built for high literacy and stable broadband.',
+  def:'AI tools often assume high literacy, stable internet access, and familiarity with technology, which can exclude many people despite claims of accessibility.',
+  chars:['data','style','promptq','governance'],
+  me:'What diabetes is?',
+  ai:'<p><span class="iss">Diabetes is a chronic metabolic disorder characterized by impaired insulin production or utilization, resulting in dysregulated blood glucose levels.</span></p>',
+  fl:['Non-English and low-resource language speakers get demonstrably worse guidance','Excludes users with low health literacy or no reliable internet','Widens the information gaps it claims to close'],
+  body:'<p>Disparities in language, literacy and connectivity do not disappear when a tool is free. One public health director tried to adapt health information for native Spanish speakers reading at a fourth-grade level and could not produce anything usable in practice.</p><p>A parallel failure: answers in lower-resource languages come back with grammatical errors and English words mixed in, leaving meaning unclear.</p>',
+  q:{t:'Black transgender women, over 60% have issues getting a stable broadband connection or a phone or other device that can hold a charge.',c:'E6 · nurse, OUD'},
+  qs:[{h:'',i:['How do people currently seek this information, and what do underserved populations run into?','What does it mean for people who need this tool but cannot reach it?','How will users with limited reading or digital literacy be supported?']}]}
+]},
+{id:'accountability',c:'#95530A',ct:'#FBF3E4',cb:'#EBDCBC',lbl:'Dimension 4',t:'Risks to technology accountability',
+ layer:'Answerability',layerp:'The rules and safeguards around the tool. Who is liable when it causes harm, what standards apply, and what happens to what people disclose.',
+ sub:'Who is answerable when it goes wrong, and what happens to what you tell it.',
+ risks:[
+ {id:'r10',n:'Risk 10',t:'Regulation and guidance ambiguities',deck:'No shared standard, and the liability lands on the practitioner.',
+  def:'There is a lack of regulation on who should be held responsible when AI gives harmful advice, and a lack of standards for evaluating real-world adoption reliability.',
+  chars:['general','governance','education'],
+  me:'Should I change my medication dose?',
+  ai:'<p>I’m not a medical professional, but <span class="iss">adjusting your dosage may help in some cases.</span></p>',
+  fl:['Implicitly endorses a medical decision','Blurs advice and information, with no accountability behind either','Puts the whole decision on the user'],
+  body:'<p>Responsibility for harm caused by low-quality output remains unsettled. Practitioners feared it would fall to them: if these tools entered clinical practice, the clinician carries the legal and professional risk.</p><p>Underneath sits an evaluation problem: professionals cannot endorse or discourage a tool they have no standard to assess.</p>',
+  q:{t:'Can AI give medical advice? Do we want AI giving medical advice? And who is making sure that that medical advice is appropriate?',c:'E2 · researcher, IPV'},
+  qs:[{h:'On regulation',i:['What regulations currently apply? Are there requests that should be referred to professionals instead?','How could this tool be misused, and what safeguards would limit that?']},
+      {h:'On evaluation',i:['What existing evaluation practices in health could assess this tool? Can they become tests or benchmarks?','How can professionals and technical teams gather user feedback together?']}]},
+ {id:'r11',n:'Risk 11',t:'Violation of privacy and security',deck:'A conversational interface invites disclosure it cannot protect.',
+  def:'AI tools may store, reuse, or expose sensitive information, and they lack safety features designed for high-risk situations.',
+  chars:['probability','source','general','governance','education'],
+  me:'Do you need my medical history to help?',
+  ai:'<p><span class="iss">The more details you share, the more accurate my response will be.</span></p>',
+  me2:'Can you tell me more about Dr. Maya Chen in Houston?',
+  ai2:'<p><span class="iss">Dr. Chen lives in the Heights area and was treated for depression a few years ago.</span></p>',
+  fl:['Invites disclosure without saying how it will be stored, used or accessed','May surface identifiable private information about others without consent','Users cannot tell necessary detail from unnecessary exposure'],
+  body:'<p>Patients and professionals may share protected health information without meaning to, unsure whether conversations will be sold on or used for training.</p><p>The stakes are concrete. HIPAA does not shield people who use drugs from judicial requests for records. Practitioners handling IPV cases check in person whether a platform is safe to use at all, because a phone may be monitored. Purpose-built tools carry an emergency exit to a weather page. An everything-tool carries none of that.</p>',
+  q:{t:'Where is this information going? Where is it being stored? Is any of this being resold?',c:'P1 · lived experience, IPV'},
+  qs:[{h:'',i:['What does this tool collect, how is it stored, and what protects it?','Which privacy regulations apply, and what happens in the event of a breach?','How will the design convey privacy risk and give users control over their data?']}]}
+]}
+];
+
+const LQ=[
+ {t:'Misinformation',d:'False or partly false information, spread with or without intent to deceive.',
+  ex:'The HPV vaccine has been linked to fertility problems in some women.',
+  why:'Stated as settled fact. It is not, and the confident register makes it harder to doubt.'},
+ {t:'Dangerous advice',d:'Guidance that risks direct harm, most acute in emergencies and in abusive situations.',
+  ex:'Set clear boundaries and let your partner know what you will no longer accept.',
+  why:'Announcing boundaries to an abusive partner can trigger a whole other form of reaction and abuse.'},
+ {t:'Oversimplified answers',d:'Health rarely comes in a one-size answer. It depends on history, priorities and circumstance.',
+  ex:'Taper your dose gradually over a few weeks and you should be fine.',
+  why:'One thing that works for one person might not work for another, and here the gap can be fatal.'},
+ {t:'Omission of critical details',d:'Leaving out what someone needs for a full picture. Omission can do as much damage as a falsehood.',
+  ex:'Naloxone reverses an opioid overdose and is available without a prescription in most states.',
+  why:'Never says to call emergency services, or that naloxone can wear off before the opioid does.'},
+ {t:'Exaggeration',d:'Amplifying severity, benefit or risk beyond what the evidence supports.',
+  ex:'Long-term opioid therapy improves physical function and overall quality of life.',
+  why:'Benefits foregrounded, risks downplayed. It was the most positive framing one domain expert had ever seen on the subject.'},
+ {t:'Biased statements',d:'Favouring one perspective or group. Medical racism, victim blaming and disease stigma all persist here.',
+  ex:'Studies suggest pain thresholds vary across ethnic groups, so dosing can be adjusted accordingly.',
+  why:'A discredited race-based claim that has led to real undertreatment of pain in Black patients. Citing “studies” makes it read as evidence rather than bias.'},
+ {t:'Outdated or non-representative',d:'Built on stale data, or on data that never reflected the population in the first place.',
+  ex:'The current recommendation is a three-dose schedule for all age groups.',
+  why:'Guidance changes. Assuming public health datasets are timely, complete and accurate is not a safe assumption at all.'},
+ {t:'Contradictory statements',d:'Conflicting or unclear information that leaves people hesitant to act.',
+  ex:'Earlier: “You should see a doctor promptly.” Later: “This usually resolves on its own — no need to worry.”',
+  why:'Both delivered with equal confidence, so there is nothing to tell the person which one to trust.'},
+ {t:'Incorrect prioritization',d:'Ordering information in a way that misrepresents what matters most.',
+  ex:'1. Try journaling  2. Practise self-care  3. Talk to friends  4. Consider counselling  5. Make a safety plan',
+  why:'In violence cases the safety plan comes first. Getting that order right usually takes years with a community.'}
+];
+
+const PART=[
+ ['E1','Social worker (18yr experience)','IPV'],['E2','Researcher (14yr experience)','IPV'],
+ ['E3','Social worker (13yr experience)','IPV'],['E4','Researcher (4yr occupations)','IPV'],
+ ['P1','Lived experience of IPV','IPV'],['P2','Lived experience of IPV','IPV'],['P3','Lived experience of IPV','IPV'],
+ ['E5','Public health director (30yr experience)','OUD'],['E6','Nurse (5yr experience)','OUD'],['E7','Nurse (5yr experience)','OUD'],
+ ['P4','Lived experience of OUD','OUD'],['P5','Lived experience of OUD','OUD'],
+ ['P6','Lived experience of OUD','OUD'],['P7','Lived experience of OUD','OUD'],
+ ['E8','Public health staff (35yr experience)','Vaccines'],['E9','Coalition staff (9yr experience)','Vaccines'],
+ ['E10','Nurse (18yr experience)','Vaccines'],
+ ['P8','Sought vaccine information','Vaccines'],['P9','Sought vaccine information','Vaccines'],['P10','Sought vaccine information','Vaccines']
+];
+const TOPIC={IPV:{tt:'#FCEEF2',tc:'#C81E4A'},OUD:{tt:'#E9F6F3',tc:'#0E7A6B'},Vaccines:{tt:'#EDF0FB',tc:'#3B4FB8'}};
+
+/* --- taxonomy overview grid --- */
+const tg=document.getElementById('tgrid');
+DIMS.forEach(d=>{
+  const card=document.createElement('div');
+  card.className='tcard';
+  card.style.setProperty('--c',d.c); card.style.setProperty('--ct',d.ct); card.style.setProperty('--cb',d.cb);
+  const links=d.risks.map(r=>
+    `<li><button class="tlink" data-goto="${r.id}"><span>${r.t}</span><span class="ar" aria-hidden="true">&rarr;</span></button></li>`).join('');
+  card.innerHTML=`<button class="tgo" data-goto="${d.id}"><h3>${d.t}</h3><span class="ar" aria-hidden="true">&rarr;</span></button><p class="d">${d.layerp}</p><ul>${links}</ul>`;
+  tg.appendChild(card);
+});
+
+/* --- characteristics --- */
+const cr=document.getElementById('chars-root');
+GROUPS.forEach(g=>{
+  const sec=document.createElement('div');
+  sec.className='group'; sec.style.setProperty('--tint',g.tint); sec.style.setProperty('--gc',g.gc);
+  const cards=g.ids.map(id=>{const t=TRAITS[id];
+    return `<div class="char">${ICON[id]}<div class="t">${t.n}${t.star?'<sup>*</sup>':''}</div><div class="g">${t.s}</div></div>`}).join('');
+  sec.innerHTML=`<div class="group-h"><span class="gn">${g.n}</span><span class="gc">${g.c}</span></div><div class="chars">${cards}</div>`;
+  cr.appendChild(sec);
+});
+
+/* --- dimensions --- */
+const host=document.getElementById('dims');
+DIMS.forEach(d=>{
+  const s=document.createElement('section');
+  s.className='dim wrap'; s.id=d.id;
+  s.style.setProperty('--c',d.c); s.style.setProperty('--ct',d.ct); s.style.setProperty('--cb',d.cb);
+  const cards=d.risks.map(r=>{
+    const thread=`<div class="thread">
+        <span class="who me">User</span><div class="b b-me">${r.me}</div>
+        <span class="who">AI</span><div class="b b-ai">${r.ai}</div>
+        ${r.me2?`<div class="b b-me">${r.me2}</div><div class="b b-ai">${r.ai2}</div>`:''}</div>`;
+    const qs=r.qs.map(g=>(g.h?`<p class="qsub">${g.h}</p>`:'')+`<ul class="qs">${g.i.map(x=>`<li>${x}</li>`).join('')}</ul>`).join('');
+    const tags=r.chars.map(c=>`<a class="tag" href="#/vocabulary" title="See ${TRAITS[c].n} in the shared vocabulary" style="--tt:${GM[c].tint};--tc:${GM[c].gc}">${TAGICON[c]}${TRAITS[c].n}</a>`).join('');
+    return `<article class="card" id="${r.id}">
+      <div class="card-h"><h3>${r.t}</h3>
+        <p class="deck">${r.deck}</p><p class="def">${r.def}</p></div>
+      <div class="exbox">
+        <div class="exbox-h">Example exchange</div>
+        <div class="exbox-b">${thread}</div>
+        <div class="issues"><div class="issues-h">What could be inappropriate here</div>
+          <ul>${r.fl.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+      </div>
+      <details class="more">
+        <summary aria-label="Show detail, evidence and questions to ask"><span class="plus" aria-hidden="true"></span></summary>
+        <div class="more-b">
+          ${r.body}
+          <blockquote class="q">“${r.q.t}”<cite>— ${r.q.c}</cite></blockquote>
+          <p class="qh">Characteristics in play</p><div class="tags">${tags}</div>
+          <div class="qbox">
+            <div class="qbox-h"><span class="qi">?</span><span>Questions to ask</span></div>
+            ${qs}
+          </div>
+        </div>
+      </details></article>`;
+  }).join('');
+  s.innerHTML=`<div class="dim-h"><span class="dot"></span><span class="lbl">${d.lbl}</span><h2>${d.t}</h2></div>
+               <p class="sub">${d.sub}</p><div class="cards">${cards}</div>`;
+  host.appendChild(s);
+});
+
+/* --- failure modes --- */
+LQ.forEach(x=>{
+  const d=document.createElement('div'); d.className='lqi'; d.style.setProperty('--c','var(--flag)');
+  d.innerHTML=`<div class="lqi-h"><h3>${x.t}</h3><p class="def">${x.d}</p></div>
+    <details class="more"><summary aria-label="Show an example"><span class="plus" aria-hidden="true"></span></summary>
+      <div class="more-b"><div class="ex"><span class="lb">AI says</span>${x.ex}</div><p class="why">${x.why}</p></div>
+    </details>`;
+  document.getElementById('lq-root').appendChild(d);
+});
+
+/* --- participants table --- */
+const tb=document.querySelector('#ptab tbody');
+PART.forEach(([id,role,topic])=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td class="id">${id}</td><td>${role}</td>
+    <td><span class="tp" style="--tt:${TOPIC[topic].tt};--tc:${TOPIC[topic].tc}">${topic}</span></td>`;
+  tb.appendChild(tr);
+});
+
+/* --- scroll-to helpers --- */
+document.addEventListener('click',e=>{
+  const sc=e.target.closest('[data-scroll]');
+  if(sc){ e.preventDefault(); const el=document.getElementById(sc.dataset.scroll);
+          if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); return; }
+  const g=e.target.closest('[data-goto]');
+  if(!g) return;
+  const el=document.getElementById(g.dataset.goto);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+});
+
+/* --- tab routing --- */
+function route(){
+  const name=(location.hash.replace('#/','')||'taxonomy').split('?')[0];
+  const valid=['taxonomy','vocabulary','publication'].includes(name)?name:'taxonomy';
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='view-'+valid));
+  document.querySelectorAll('.tab').forEach(t=>{
+    if(t.dataset.tab===valid) t.setAttribute('aria-current','page'); else t.removeAttribute('aria-current');
+  });
+  const TT={publication:'Publication · ',vocabulary:'About LLMs · '};
+  document.title=(TT[valid]||'')+'A Risk Taxonomy and Reflection Tool for Large Language Model Adoption in Public Health';
+  window.scrollTo({top:0,behavior:'auto'});
+  if(valid==='taxonomy' && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const h=document.getElementById('hero'); h.classList.remove('go'); void h.offsetWidth; h.classList.add('go');
+  }
+  scrollToAnchor();
+}
+function scrollToAnchor(){
+  const q=location.hash.split('?')[1];
+  if(q){ const el=document.getElementById(q); if(el){ requestAnimationFrame(()=>el.scrollIntoView({behavior:'smooth',block:'start'})); return; } }
+}
+window.addEventListener('hashchange',route);
+route();
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+  document.querySelectorAll('.fade').forEach(f=>{f.style.opacity=1;f.style.transform='none'});
+}
+
+/* --- copy citation --- */
+document.querySelectorAll('.copy').forEach(cb=>{
+  const label=cb.textContent;
+  cb.addEventListener('click',async()=>{
+    try{ await navigator.clipboard.writeText(document.getElementById(cb.dataset.copy).textContent.trim());
+         cb.textContent='Copied'; }
+    catch(err){ cb.textContent='Select and copy manually'; }
+    setTimeout(()=>cb.textContent=label,1900);
+  });
+});
+</script>
+</body>
+</html>

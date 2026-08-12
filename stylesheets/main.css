@@ -239,6 +239,15 @@ main { min-width: 0; }
 .ov-papers a { color: var(--text-soft); }
 .ov-papers a:hover { color: var(--accent); }
 
+/* Globe link to the interactive project page — inline, no extra line height */
+.ov-papers a.ov-proj {
+  color: var(--accent);
+  margin-left: 4px;
+  font-size: .82rem;
+  white-space: nowrap;
+}
+.ov-papers a.ov-proj:hover { color: var(--accent-hover); }
+
 /* ==========================================================================
    News — scrollable panel
    ========================================================================== */

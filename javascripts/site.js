@@ -113,9 +113,20 @@
       var links = papers.map(function (p) {
         var href = titleHref(p);
         var inner = '<span class="venue sm">' + esc(p.venue) + "</span> " + esc(p.title);
-        return "<li>" + (href
+        var titleHtml = href
           ? '<a href="' + esc(href) + '" target="_blank" rel="noopener">' + inner + "</a>"
-          : inner) + "</li>";
+          : inner;
+
+        // Globe icon links to the interactive project page, when one exists.
+        var proj = "";
+        if (p.links && p.links.webpage) {
+          var label = "Interactive project page for " + p.title;
+          proj = ' <a class="ov-proj" href="' + esc(p.links.webpage) +
+                 '" target="_blank" rel="noopener" title="Interactive project page" aria-label="' +
+                 esc(label) + '"><i class="fa-solid fa-globe" aria-hidden="true"></i></a>';
+        }
+
+        return "<li>" + titleHtml + proj + "</li>";
       }).join("");
 
       // Illustrations are inlined (not <img>) so they inherit the theme color

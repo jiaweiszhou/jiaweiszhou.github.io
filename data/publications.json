@@ -26,7 +26,7 @@
     "themes": ["ai-health"],
     "featured": false,
     "links": {
-      "pdf": "assets/bmc_health_info_explain.pdf",
+      "pdf": "assets/bmc26_health_info_explain.pdf",
       "doi": "https://doi.org/10.1186/s44398-026-00030-z"
     },
     "abstract": "With the wide adoption of large language models (LLMs) in assisting professionals to create and share information, it is essential to examine their alignment with human communication styles and values in achieving communication effectiveness and acceptability. We situate this study within the context of explaining fact-checked health information, with a focus on communication styles because they influence whether explanations and corrections are understood, trusted, and acted upon. We compiled a dataset of 1498 misinformation claims and corresponding explanations from authoritative fact-checking organizations, generated LLM fact-checking responses using chain-of-thought prompting, and categorized communication styles along linguistic, persuasion, and value-based dimensions. We then examined preferences of 99 participants who were unaware of LLM involvement. LLM-generated articles scored significantly lower on persuasive strategies, certainty expressions, and alignment with social values and moral foundations, yet over 60% of readers preferred them for clarity, completeness, and persuasiveness. This preference was driven by structured presentation and neutral tone, which may foster an impression of completeness and professionalism even when the underlying content lacks nuance or rigor. The results indicate both the potential and the limitations of using LLMs in health communication and fact-checking workflows.",
@@ -44,7 +44,8 @@
     "image": "assets/img/llm_health.png",
     "links": {
       "pdf": "assets/cscw25_llm_health.pdf",
-      "doi": "https://doi.org/10.1145/3757544"
+      "doi": "https://doi.org/10.1145/3757544",
+      "webpage": "projects/llm-public-health-taxonomy.html"
     },
     "press": [
       "Invited talk @ <a href=\"https://hwutemple.github.io/AIME25WorkshopAIPHSS/\">International Conference on AI in Medicine (AIME'25)</a> Workshop on AI Applications in Public Health and Social Services",
